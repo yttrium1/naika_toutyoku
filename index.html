@@ -1,657 +1,194 @@
-<!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>内科 日当直希望 </title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>日当直希望</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</link>
   <style>
-    :root {
-      --primary: #3b82f6;
-      --primary-dark: #2563eb;
-      --secondary: #f59e0b;
-      --secondary-light: #fcd34d;
-      --text: #1f2937;
-      --text-light: #6b7280;
-      --background: #f3f4f6;
-      --white: #ffffff;
-      --danger: #ef4444;
-      --success: #10b981;
-      --card: #ffffff;
-      --border: #e5e7eb;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --radius: 0.5rem;
-      --transition: all 0.3s ease;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
       font-family: 'Noto Sans JP', sans-serif;
-      background-color: var(--background);
-      color: var(--text);
-      line-height: 1.6;
-    }
+　　　　background-color: #b0c4de;
+      }
+    </body>
 
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
 
-    .card {
-      background-color: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      margin-bottom: 2rem;
-      transition: var(--transition);
-    }
+    body {
+  margin: 0;
+  padding: 20px; /* 上下左右に20pxのパディングを追加 */
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: #b0c4de;
+}
 
-    .card:hover {
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
-
-    .header {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: var(--white);
-      padding: 1.5rem;
-      text-align: center;
-      position: relative;
-    }
-
-    .header h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .header p {
-      font-weight: 300;
-      opacity: 0.9;
-    }
-
-    .step {
-      padding: 2rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .step:last-child {
-      border-bottom: none;
-    }
-
-    .step-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .step-number {
-      background-color: var(--primary);
-      color: var(--white);
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      margin-right: 1rem;
-    }
-
-    .step-title {
-      font-weight: 700;
-      font-size: 1.2rem;
-    }
-
-    .step-description {
-      margin-bottom: 1rem;
-      color: var(--text-light);
-      font-size: 0.9rem;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-
-    .form-select, .form-input, .form-textarea {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 1rem;
-      transition: var(--transition);
-      background-color: var(--white);
-    }
-    
-    .form-select {
-      appearance: none;
-      background-image: linear-gradient(45deg, transparent 50%, var(--primary) 50%), 
-                        linear-gradient(135deg, var(--primary) 50%, transparent 50%);
-      background-position: calc(100% - 20px) calc(1em + 2px), 
-                          calc(100% - 15px) calc(1em + 2px);
-      background-size: 5px 5px, 5px 5px;
-      background-repeat: no-repeat;
-      padding-right: 3rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      border-left: 3px solid var(--primary);
-    }
-    
-    .form-select:hover {
-      border-color: var(--primary-dark);
-      background-color: rgba(59, 130, 246, 0.05);
-    }
-    
-    optgroup {
-      font-weight: 700;
-      color: var(--primary-dark);
-      background-color: rgba(59, 130, 246, 0.1);
-    }
-    
-    option {
-      font-weight: normal;
-      color: var(--text);
-      background-color: white;
-      padding: 8px;
-    }
-
-    .form-select:focus, .form-input:focus, .form-textarea:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-      transform: translateY(-1px);
-    }
-
-    .form-textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
-
-    .calendar-container {
-      margin-top: 1rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      background-color: var(--white);
-    }
-
-    .calendar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      background-color: var(--primary);
-      color: var(--white);
-    }
-
-    .month-title {
-      font-weight: 700;
-      font-size: 1.1rem;
-      text-align: center;
-      flex-grow: 1;
-    }
-
-    .calendar-nav {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .calendar-nav button {
-      background-color: rgba(255, 255, 255, 0.2);
-      border: none;
-      color: var(--white);
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+.container {
+  max-width: 1200px; /* コンテンツの最大幅を1200pxに設定 */
+  margin: 0 auto; /* 左右のマージンをautoに設定して中央寄せ */
+  padding: 20px; /* コンテナの内側に20pxのパディングを追加 */
+  background-color: white; /* 背景色を白に設定 */
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* シャドウを追加して立体感を出す */
+}
+    .date:hover {
       cursor: pointer;
-      transition: var(--transition);
+      background-color: #fbd38d;
     }
-
-    .calendar-nav button:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      background-color: var(--white);
-      gap: 1px;
-    }
-
     .calendar-day {
-      padding: 0.5rem 0.25rem;
+      font-weight: bold;
       text-align: center;
-      font-weight: 700;
-      background-color: rgba(59, 130, 246, 0.1);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .calendar-day-sun {
-      color: var(--danger);
-    }
-
-    .calendar-day-sat {
-      color: var(--primary);
-    }
-
-    .date {
-      height: 40px;
-      display: flex;
-      align-items: center;
+  　　 display: flex;
       justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
-      border: 1px solid var(--border);
-      position: relative;
-      background-color: var(--white);
+      width: 100%; /* コンテナの幅いっぱいに広げる */
     }
+    .calendar-day-sun {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+  　　 display: flex;
+      justify-content: center;
+      width: 100%; /* コンテナの幅いっぱいに広げる */
+    }
+    .calendar-day-sat {
+      color: blue;
+      font-weight: bold;
+      text-align: center;
+  　　 display: flex;
+      justify-content: center;
+      width: 100%; /* コンテナの幅いっぱいに広げる */
+    }
+    .step-button {
+      display: inline-block;
+      background-color: #68d391;
+      color: white;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+    }
+  .date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex: 1 0 14%;
+  transition: background-color 0.3s ease;
+  border: 1px solid #bbb; /* 境界線を追加 */
+}
 
     .date-cell {
       display: flex;
-      flex-direction: column;
-      height: auto;
-      min-height: 60px;
-      border: 1px solid var(--border);
-      background-color: var(--white);
-      padding: 2px;
-    }
-
+      justify-content: space-around;
+      flex: 1 0 4%; /* 各グリッドセルがコンテナの幅の14%を取るように設定 */
+      border: 1px solid #bbb; /* 境界線を追加 */
+          }
     .duty, .day {
-      display: flex;
+      flex: 1 0 7%; /* これにより、これらの要素は日付の半分の幅を取る */
+      text-align: center;
       justify-content: center;
       align-items: center;
-      padding: 5px 2px;
-      margin: 1px 0;
-      font-size: 14px;
-      flex-grow: 1;
-      width: 100%;
-      cursor: pointer;
-      transition: var(--transition);
-      border-radius: 4px;
+      margin: 2px; /* 余白を適切に設定 */
+  /* その他必要なスタイルがあれば追加 */
     }
     
-    .duty:hover, .day:hover {
-      background-color: rgba(59, 130, 246, 0.1);
+    .calendar-grid {
+      display: flex; /* Flexコンテナとして指定 */
+      flex-wrap: wrap; /* 要素を折り返すように指定 */
+      justify-content: space-between; /* 要素の間にスペースを均等に配置 */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border: 1px solid #ccc;
     }
-
-    .date:hover {
-      background-color: rgba(59, 130, 246, 0.1);
-    }
-
-    .bg-yellow-300 {
-      background-color: var(--secondary-light) !important;
-      font-weight: 700;
-    }
-
-    .preferred .bg-yellow-300 {
-      background-color: rgba(16, 185, 129, 0.3) !important;
-    }
-
-    .not-preferred .bg-yellow-300 {
-      background-color: rgba(239, 68, 68, 0.3) !important;
+    .date {
+      transition: background-color 0.3s ease; /* ホバーエフェクトの滑らかな変化 */
     }
     
-    .date-unavailable {
-      background-color: #f5f5f5 !important;
-      color: #aaa !important;
-      cursor: not-allowed !important;
-      position: relative;
-      overflow: hidden;
-    }
+    #generate-url {
+  position: relative;
+  padding: 10px 20px;
+  border-radius: 7px;
+  border: 1px solid rgb(61, 106, 255); /* 枠の色 */
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+  background: rgb(61, 106, 255); /* デフォルトの背景色を青に */
+  color: #fff; /* デフォルトの文字色は白 */
+  overflow: hidden;
+  box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815); /* デフォルト状態でのシャドウ */
+  transition: all 0.2s ease-in-out;
+}
+
+#generate-url:hover {
+  background: transparent; /* ホバー時の背景を透明に */
+  color: rgb(61, 106, 255); /* ホバー時の文字色を青に（背景が透明なので見えるように） */
+  box-shadow: 0 0 0 0 transparent; /* ホバー時のシャドウを削除 */
+}
+
+#generate-url:hover::before {
+  animation: none; /* ホバー時のアニメーションを無効化（必要に応じて） */
+}
+#generate-url::before {
+ content: '';
+  display: block;
+  width: 0px;
+  height: 86%;
+  position: absolute;
+  top: 7%;
+  left: 0%;
+  opacity: 0;
+  background: #fff;
+  box-shadow: 0 0 50px 30px #fff;
+  -webkit-transform: skewX(-20deg);
+  -moz-transform: skewX(-20deg);
+  -ms-transform: skewX(-20deg);
+  -o-transform: skewX(-20deg);
+  transform: skewX(-20deg);}
+
+@keyframes  {
+  from {
+    opacity: 0;
+    left: 0%;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    left: 100%;
+  }
+}
+
+#generate-url:active {
+box-shadow: 0 0 0 0 transparent;
+  -webkit-transition: box-shadow 0.2s ease-in;
+  -moz-transition: box-shadow 0.2s ease-in;
+  transition: box-shadow 0.2s ease-in;
+}
     
-    .date-unavailable::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        135deg,
-        rgba(255, 0, 0, 0.1),
-        rgba(255, 0, 0, 0.1) 5px,
-        rgba(255, 255, 255, 0.2) 5px,
-        rgba(255, 255, 255, 0.2) 10px
-      );
-      pointer-events: none;
-    }
-    
-    .date-unavailable:hover {
-      background-color: #f5f5f5 !important;
-    }
-
-    .btn {
-      display: inline-block;
-      background-color: var(--primary);
-      color: var(--white);
-      font-weight: 700;
-      padding: 0.75rem 1.5rem;
-      border-radius: var(--radius);
-      border: 2px solid var(--primary);
-      cursor: pointer;
-      transition: var(--transition);
-      text-align: center;
-      font-size: 1rem;
-      text-decoration: none;
-    }
-
-    .btn:hover {
-      background-color: var(--primary-dark);
-      border-color: var(--primary-dark);
-    }
-
-    .btn-submit {
-      background: linear-gradient(45deg, var(--success), #20d997);
-      border: none;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 1rem;
-      position: relative;
-      overflow: hidden;
-      padding: 0.75rem;
-      font-size: 1.1rem;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-      transition: all 0.4s ease;
-      z-index: 1;
-    }
-    
-    .btn-submit::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, #20d997, var(--success));
-      opacity: 0;
-      z-index: -1;
-      transition: opacity 0.4s ease;
-    }
-
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
-      color: white;
-    }
-    
-    .btn-submit:hover::before {
-      opacity: 1;
-    }
-    
-    .btn-submit:active {
-      transform: translateY(1px);
-      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.4);
-    }
-    
-    .btn-submit::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 5px;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.5);
-      opacity: 0;
-      border-radius: 100%;
-      transform: scale(1) translate(-50%, -50%);
-      transform-origin: 50% 50%;
-    }
-    
-    .btn-submit:focus::after {
-      animation: ripple 1s ease-out;
-    }
-    
-    @keyframes ripple {
-      0% {
-        transform: scale(0) translate(-50%, -50%);
-        opacity: 0.5;
-      }
-      100% {
-        transform: scale(40) translate(-50%, -50%);
-        opacity: 0;
-      }
-    }
-
-    .footer {
-      text-align: center;
-      padding: 1rem;
-      color: var(--text-light);
-      font-size: 0.9rem;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .header {
-        padding: 1.5rem;
-      }
-
-      .step {
-        padding: 1.5rem;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .container {
-        margin: 1rem auto;
-      }
-
-      .header h1 {
-        font-size: 1.5rem;
-      }
-
-      .step {
-        padding: 1rem;
-      }
-
-      .date {
-        height: 35px;
-        font-size: 0.9rem;
-      }
-    }
   </style>
-</head>
-<body>
-  <div class="container">
-    <div class="card">
-      <div class="header">
-        <h1>内科日当直希望登録</h1>
-        <p>毎月8日が締め切りです</p>
-      </div>
-
-      <div class="step">
-        <div class="step-header">
-          <div class="step-number">1</div>
-          <div class="step-title">お名前</div>
-        </div>
-        <div class="form-group">
-          <div class="custom-select-wrapper" style="position: relative;">
-            <select id="name-select" class="form-select">
-              <option value="">回答者を選択してください（敬称略）</option>
-              <optgroup label="消化器内科">
-                <option value="西中川">西中川</option>
-                <option value="大場">大場</option>
-                <option value="A">A</option>
-                <option value="折原">折原</option>
-                <option value="石井">石井</option>
-                <option value="B">B</option>
-              </optgroup>
-              <optgroup label="呼吸器内科">
-                <option value="河野">河野</option>
-                <option value="松村">松村</option>
-                <option value="鈴木">鈴木</option>
-                <option value="伊藤">伊藤</option>
-                <option value="堀">堀</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-              </optgroup>
-              <optgroup label="腎臓内科">
-                <option value="杉田">杉田</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-              </optgroup>
-              <optgroup label="循環器内科">
-                <option value="吉玉">吉玉</option>
-                <option value="浅原">浅原</option>
-                <option value="高亀">高亀</option>
-                <option value="G">G</option>
-                <option value="有上">有上</option>
-                <option value="久次米">久次米</option>
-              </optgroup>
-              <optgroup label="糖尿病代謝内分泌科">
-                <option value="H">H</option>
-              </optgroup>
-              <optgroup label="その他">
-                <option value="その他">その他</option>
-              </optgroup>
-            </select>
-            <div class="select-icon" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--primary);">
-              <i class="fas fa-user-md"></i>
-            </div>
-          </div>
-          <input id="other-name-input" type="text" placeholder="名前を入力" class="form-input" style="display:none; margin-top: 1rem; border-left: 3px solid var(--primary);">
-          <p id="name-error" class="text-danger" style="display: none; color: var(--danger); margin-top: 0.5rem;">名前を入力してください。</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-header">
-          <div class="step-number">2</div>
-          <div class="step-title">希望する日</div>
-        </div>
-        <p class="step-description">木曜日は循環器医師のみ。</p>
-        <div class="calendar-container preferred">
-          <div class="calendar-header">
-            <div class="calendar-nav">
-              <button class="prev-month"><i class="fas fa-chevron-left"></i></button>
-            </div>
-            <div class="month-title">2023年 12月</div>
-            <div class="calendar-nav">
-              <button class="next-month"><i class="fas fa-chevron-right"></i></button>
-            </div>
-          </div>
-          <div class="calendar-grid">
-            <!-- Calendar days will be generated by JavaScript -->
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-header">
-          <div class="step-number">3</div>
-          <div class="step-title">希望しない日</div>
-        </div>
-        <p class="step-description">（翌日外勤・外来でできない場合も含む）</p>
-        <div class="calendar-container not-preferred">
-          <div class="calendar-header">
-            <div class="calendar-nav">
-              <button class="prev-month"><i class="fas fa-chevron-left"></i></button>
-            </div>
-            <div class="month-title">2023年 12月</div>
-            <div class="calendar-nav">
-              <button class="next-month"><i class="fas fa-chevron-right"></i></button>
-            </div>
-          </div>
-          <div class="calendar-grid">
-            <!-- Calendar days will be generated by JavaScript -->
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-header">
-          <div class="step-number">4</div>
-          <div class="step-title">コメント</div>
-        </div>
-        <p class="step-description">コメントがあればお願いします。</p>
-        <div class="form-group">
-          <textarea id="comment-input" class="form-textarea" placeholder="コメント"></textarea>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-header">
-          <div class="step-number">5</div>
-          <div class="step-title">メールアドレス（任意）</div>
-        </div>
-        <p class="step-description">自分の回答結果を後で確認できます。</p>
-        <div class="form-group">
-          <input type="email" id="email-input" class="form-input" placeholder="your.email@example.com">
-        </div>
-        <button id="generate-url" class="btn btn-submit">
-          <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>送信する
-        </button>
-      </div>
-    </div>
-
-    <div class="footer">
-      <p>内科日当直希望 </p>
-    </div>
-  </div>
-
-  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // EmailJS initialization
-      (function(){
-        emailjs.init("XhqJVhB68ooIcAMCD");
-      })();
+   document.addEventListener('DOMContentLoaded', function() {
+    let now = new Date(); // 現在の日付と時刻を取得
+    let currentMonth = new Date(now.getFullYear(), now.getMonth(), 1); // 現在の月の最初の日を取得
 
-      // Handle "other" name select
-      const nameSelect = document.getElementById('name-select');
-      const otherNameInput = document.getElementById('other-name-input');
-
-      nameSelect.addEventListener('change', function() {
-        if (this.value === 'その他') {
-          otherNameInput.style.display = 'block';
-        } else {
-          otherNameInput.style.display = 'none';
-        }
-      });
-
-      // Calendar functionality
-      // Calculate which month to display based on current date
-      let now = new Date();
-      let currentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-
-      // If current day is 10 or less, show next month (n+1)
-      // If current day is 11 or more, show the month after next (n+2)
-      if (now.getDate() <= 10) {
-        currentMonth.setMonth(currentMonth.getMonth() + 1);
-      } else {
-        currentMonth.setMonth(currentMonth.getMonth() + 2);
-      }
-
-      const monthTitles = document.querySelectorAll('.month-title');
+  // 現在の日が1から10の間かどうかをチェック
+  if (now.getDate() >= 1 && now.getDate() <= 10) {
+    // 1-10日の場合、1ヶ月後のカレンダーを表示
+    currentMonth.setMonth(currentMonth.getMonth() + 1);
+  } else {
+    // それ以外の場合、2ヶ月後のカレンダーを表示
+    currentMonth.setMonth(currentMonth.getMonth() + 2);
+  }
+      const monthTitle = document.querySelectorAll('.month-title');
       const calendarGrids = document.querySelectorAll('.calendar-grid');
 
       function updateCalendar(month) {
-        // Update month titles
-        monthTitles.forEach(title => {
+        monthTitle.forEach(title => {
           title.textContent = `${month.getFullYear()}年 ${month.getMonth() + 1}月`;
         });
 
-        // Update calendar grids
-        calendarGrids.forEach((grid, gridIndex) => {
-          const isPreferredCalendar = grid.closest('.calendar-container').classList.contains('preferred');
-          
+        calendarGrids.forEach(grid => {
           grid.innerHTML = ''; // Clear the calendar grid
 
           // Get the first day of the month
@@ -670,143 +207,88 @@
 
           // Add empty cells before the first day of the month
           for (let i = 0; i < firstDay; i++) {
-            grid.innerHTML += '<div style="border: 1px solid var(--border); background-color: rgba(0,0,0,0.03);"></div>';
+            grid.innerHTML += '<div></div>';
           }
 
-          // 2024-2025年の日本の祝日リスト
-          const holidays = [
-            "2024-01-01", // 元日
-            "2024-01-08", // 成人の日
-            "2024-02-11", // 建国記念の日
-            "2024-03-20", // 春分の日
-            "2024-04-29", // 昭和の日
-            "2024-05-03", // 憲法記念日
-            "2024-05-04", // みどりの日
-            "2024-05-05", // こどもの日
-            "2024-05-06", // 振替休日
-            "2024-07-15", // 海の日
-            "2024-08-11", // 山の日
-            "2024-08-12", // 振替休日
-            "2024-09-16", // 敬老の日
-            "2024-09-22", // 秋分の日
-            "2024-09-23", // 振替休日
-            "2024-10-14", // 体育の日
-            "2024-11-03", // 文化の日
-            "2024-11-04", // 振替休日
-            "2024-11-23", // 勤労感謝の日
-            "2024-12-30", // 年末
-            "2024-12-31", // 年末
-            "2025-01-01", // 元日
-            "2025-01-02", // 年始
-            "2025-01-03", // 年始
-            "2025-01-13", // 成人の日
-            "2025-02-11", // 建国記念の日
-            "2025-02-24", // 振替休日
-            "2025-03-20", // 春分の日
-            "2025-04-29", // 昭和の日
-            "2025-05-03", // 憲法記念日
-            "2025-05-04", // みどりの日
-            "2025-05-05", // こどもの日
-            "2025-05-06", // 振替休日
-            "2025-07-21", // 海の日
-            "2025-08-11", // 山の日
-            "2025-09-15", // 敬老の日
-            "2025-09-23", // 秋分の日
-            "2025-10-13", // 体育の日
-            "2025-11-03", // 文化の日
-            "2025-11-23", // 勤労感謝の日
-            "2025-11-24", // 振替休日
-            "2026-1-12", // 成人の日
-            "2026-2-11", // 建国記念の日
-            "2026-3-20", // 春分の日
-          ];
-
-          // 特定の禁止された日付リスト
-          const specificUnavailableDates = [
-            "2024-04-05", "2024-05-31", "2024-06-07", "2024-07-05", 
-            "2024-08-30", "2024-09-06", "2024-10-04", "2024-11-29", "2024-12-14",
-            "2025-04-05", "2025-05-31", "2025-06-07", "2025-07-05", 
-            "2025-08-30", "2025-09-06", "2025-10-04", "2025-11-29", "2025-12-14"
-          ];
-
-          // 第1、3、5水曜日かどうかをチェックする関数
-          const isUnavailableWednesday = (date) => {
-            // 水曜日(3)かチェック
-            if (date.getDay() !== 3) return false;
-            
-            // 月の何週目かを計算
-            const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-            const dayOfWeekOfFirstDay = firstDayOfMonth.getDay();
-            const firstWednesdayDate = 1 + (3 - dayOfWeekOfFirstDay + 7) % 7;
-            const weekNumber = Math.ceil((date.getDate() - firstWednesdayDate) / 7) + 1;
-            
-            // 第1、3、5水曜日ならtrue
-            return weekNumber === 1 || weekNumber === 3 || weekNumber === 5;
-          };
-
-          // Check if date is a holiday
+           // 2024年の日本の祝日リスト
+            const holidays2024 = [
+              "2024-01-01", // 元日
+              "2024-01-08", // 成人の日
+              "2024-02-11", // 建国記念の日
+              "2024-03-20", // 春分の日
+              "2024-04-29", // 昭和の日
+              "2024-05-03", // 憲法記念日
+              "2024-05-04", // みどりの日
+              "2024-05-05", // こどもの日
+　　　　　　　　　"2024-05-06", // 振替休日
+              "2024-07-15", // 海の日
+              "2024-08-11", // 山の日
+              "2024-08-12", // 振替休日
+              "2024-09-16", // 敬老の日
+              "2024-09-22", // 
+              "2024-09-23", // 秋分の日
+              "2024-10-14", // 体育の日
+              "2024-11-03", // 文化の日
+              "2024-11-04", // 
+              "2024-11-23", // 勤労感謝の
+              "2024-12-30", //
+              "2024-12-31", //
+              "2025-01-01", //
+              "2025-01-02", //
+              "2025-01-03", //
+              "2025-01-13", //
+              "2025-02-11", //
+              "2025-02-24", //
+              "2025-03-20", //
+              "2025-04-29", //
+              "2025-05-03", //
+              "2025-05-04", //
+              "2025-05-05", //
+              "2025-05-06", //
+              "2025-07-21", //
+              "2025-08-11", //
+              "2025-09-15", //
+              "2025-09-23", //
+              "2025-10-13", //
+              "2025-11-03", //
+              "2025-11-23", //
+              "2025-11-24", //
+            ];
+          // Add day cells to the calendar, including special markers for weekends
           const isHoliday = (date) => {
-            const month = date.getMonth() + 1;
+            const month = date.getMonth() + 1; // JSでは月が0から始まるため調整
             const day = date.getDate();
             const dateString = `${date.getFullYear()}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-            return holidays.includes(dateString);
+            return holidays2024.includes(dateString);
           };
-          
-          // 日付が利用不可かどうかをチェック
-          const isUnavailableDate = (date) => {
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            const dateString = `${date.getFullYear()}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-            return isUnavailableWednesday(date) || specificUnavailableDates.includes(dateString);
-          };
-          
-          // Add day cells to the calendar
+                    
           for (let i = 1; i <= daysInMonth; i++) {
             let date = new Date(month.getFullYear(), month.getMonth(), i);
             let dayOfWeek = date.getDay();
             let isSpecialDate = isHoliday(date);
-            let isUnavailable = isUnavailableDate(date);
-            
-            // 特別な日付処理（週末や祝日）
-            if (dayOfWeek === 0 || dayOfWeek === 6 || isSpecialDate) {
-              // 希望するカレンダーでかつ選択不可の日付の場合
-              if (isPreferredCalendar && isUnavailable) {
-                grid.innerHTML += `
-                  <div class="date-cell">
-                    <div class="duty date-unavailable">${i}日</div>
-                    <div class="day">${i}当</div>
-                  </div>`;
-              } else {
-                grid.innerHTML += `
-                  <div class="date-cell">
-                    <div class="duty">${i}日</div>
-                    <div class="day">${i}当</div>
-                  </div>`;
-              }
-            } else {
-              // 平日の処理
-              if (isPreferredCalendar && isUnavailable) {
-                grid.innerHTML += `<div class="date date-unavailable">${i}</div>`;
-              } else {
-                grid.innerHTML += `<div class="date">${i}</div>`;
-              }
-            }
-          }
+  
+        if (dayOfWeek === 0 || dayOfWeek === 6 || isSpecialDate) {
+          grid.innerHTML += `
+            <div class="date-cell">
+              <div class="date duty">${i}日</div>
+              <div class="date day">${i}当</div>
+            </div>`;
+        } else {
+          grid.innerHTML += `<div class="date">${i}</div>`;
+        }
+      }
 
-          // 選択可能な要素にのみイベントリスナーを追加
-          grid.querySelectorAll('.date:not(.date-unavailable), .duty:not(.date-unavailable), .day').forEach(date => {
+          // Re-add event listeners to all date elements including "当" and "日"
+          grid.querySelectorAll('.date, .duty, .day').forEach(date => {
             date.addEventListener('click', function() {
               this.classList.toggle('bg-yellow-300');
-              console.log('Date clicked:', this.textContent);
             });
           });
         });
       }
 
-      // Initialize calendars
       updateCalendar(currentMonth);
 
-      // Handle month navigation
       document.querySelectorAll('.prev-month').forEach(button => {
         button.addEventListener('click', function() {
           currentMonth.setMonth(currentMonth.getMonth() - 1);
@@ -821,49 +303,178 @@
         });
       });
 
-      // Handle form submission
       const generateUrlButton = document.getElementById('generate-url');
-      generateUrlButton.addEventListener('click', function(event) {
-        event.preventDefault();
+      generateUrlButton.addEventListener('click', function() {
+  const nameSelect = document.getElementById('name-select');
+  let name = nameSelect.value;
+  if (name === 'その他') {
+    const otherNameInput = document.getElementById('other-name-input');
+    name = otherNameInput.value;
+    if (!name.trim()) {
+      alert('名前を入力してください。');
+      return;
+    }
+  } else if (!name) {
+    alert('名前を選択してください。');
+    return;
+  }
 
-        // Get name
-        const nameSelect = document.getElementById('name-select');
-        let name = nameSelect.value;
-        if (name === 'その他') {
-          const otherNameInput = document.getElementById('other-name-input');
-          name = otherNameInput.value;
-          if (!name.trim()) {
-            alert('名前を入力してください。');
-            return;
-          }
-        } else if (!name) {
-          alert('名前を選択してください。');
-          return;
-        }
+  const comment = document.querySelector('#comment-input').value;
+    const preferredDates = Array.from(document.querySelectorAll('.preferred .date.bg-yellow-300, .preferred .duty.bg-yellow-300, .preferred .day.bg-yellow-300')).map(el => el.textContent.trim());
+    const notPreferredDates = Array.from(document.querySelectorAll('.not-preferred .date.bg-yellow-300, .not-preferred .duty.bg-yellow-300, .not-preferred .day.bg-yellow-300')).map(el => el.textContent.trim());
 
-        // Get form data
-        const comment = document.querySelector('#comment-input').value;
-        const preferredDates = Array.from(document.querySelectorAll('.preferred .date.bg-yellow-300, .preferred .duty.bg-yellow-300, .preferred .day.bg-yellow-300')).map(el => el.textContent.trim());
-        const notPreferredDates = Array.from(document.querySelectorAll('.not-preferred .date.bg-yellow-300, .not-preferred .duty.bg-yellow-300, .not-preferred .day.bg-yellow-300')).map(el => el.textContent.trim());
-        const email = document.getElementById('email-input').value;
+  const summary = `回答者の名前: ${name}\n希望日: ${preferredDates.join(', ')}\n希望しない日: ${notPreferredDates.join(', ')}\nコメント: ${comment}`;
+  const email = 'rosai041321@gmail.com';
+  const subject = encodeURIComponent('内科日当直希望');
+  const body = encodeURIComponent(summary);
+  // const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+  
+  // window.location.href = mailtoLink;
+});
 
-        // Prepare email content
-        const summary = `回答者の名前: ${name}\n希望日: ${preferredDates.join(', ')}\n希望しない日: ${notPreferredDates.join(', ')}\nコメント: ${comment}`;
-        
-        // Send email using EmailJS
-        emailjs.send("service_v7cenku", "template_rm69kao", {
-          "name": name,
-          "comment": comment,
-          "preferred_dates": preferredDates.join(', '),
-          "not_preferred_dates": notPreferredDates.join(', '),
-          "email": email
-        }).then(function(response) {
-          alert(`送信できました，ありがとうございます！\n回答者の名前: ${name}\nコメント: ${comment}\n希望日: ${preferredDates.join(', ')}\n希望しない日: ${notPreferredDates.join(', ')}`);
-        }, function(error) {
-          alert('送信失敗．もう一度試しても失敗する場合はrosai041321@gmail.comに連絡をください: ' + error);
-        });
-      });
     });
   </script>
+</head>
+<body class="bg-gray-100">
+  <div class="container"> <!-- コンテナを開始 -->
+  <div class="max-w-screen-md mx-auto py-10">
+    <div class="text-right mb-4">
+      <span class="text-lg font-semibold">内科当直希望</span>
+    </div>
+
+  <div class="mb-8">
+  <span class="step-button">STEP 1</span>
+  <select id="name-select" class="mt-2 p-2 border border-gray-300 rounded w-full">
+    <option value="">回答者の名前を選択してください(敬称略）</option>
+    <option value="西中川">西中川</option>
+    <option value="大場">大場</option>
+    <option value="荻野">荻野</option>
+    <option value="折原">折原</option>
+    <option value="池上">池上</option>
+    <option value="中島">中島</option>
+    <option value="石井">石井</option>
+    <option value="関">関</option>
+    <option value="河野">河野</option>
+    <option value="松村">松村</option>
+    <option value="鈴木">鈴木</option>
+    <option value="伊藤">伊藤</option>
+    <option value="堀">堀</option>
+    <option value="堂脇">堂脇</option>
+    <option value="宮野">宮野</option>
+    <option value="吉玉">吉玉</option>
+    <option value="浅原">浅原</option>
+    <option value="高亀">高亀</option>
+    <option value="杉田">杉田</option>
+    <option value="小泉">小泉</option>
+    <option value="中村">中村</option>
+    <option value="有上">有上</option>
+    <option value="久次米">久次米</option> 
+    <!-- 他の選択肢を追加 -->
+    <option value="その他">その他</option>
+  </select>
+  <!-- "その他"が選択された場合に表示する新しいテキスト入力フィールド -->
+  <input id="other-name-input" type="text" placeholder="名前を入力" class="mt-2 p-2 border border-gray-300 rounded w-full" style="display:none;">
+  <!-- エラーメッセージはそのまま -->
+  <p id="name-error" class="text-red-500 text-sm mt-2" style="display: none;">名前を入力してください。</p>
+</div>
+ <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+      emailjs.init("XhqJVhB68ooIcAMCD"); // あなたのEmailJSのユーザーIDに置き換えてください
+    })();
+  </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const nameSelect = document.getElementById('name-select');
+  const otherNameInput = document.getElementById('other-name-input');
+
+  // プルダウンメニューの選択が変更されたときのイベントリスナーを追加
+  nameSelect.addEventListener('change', function() {
+    if (this.value === 'その他') {
+      // "その他"が選択されたら、テキストフィールドを表示
+      otherNameInput.style.display = '';
+    } else {
+      // "その他"以外が選択されたら、テキストフィールドを非表示
+      otherNameInput.style.display = 'none';
+    }
+  });
+   // EmailJSを使ってフォームを送信する処理
+    document.getElementById('generate-url').addEventListener('click', function(event) {
+        event.preventDefault(); // フォームのデフォルト送信を防ぐ
+
+        // フォームのデータを取得
+        var nameSelect = document.getElementById('name-select');
+        var name = nameSelect.value;
+        if (!name) {
+          alert('名前を選択してください。');
+          return; // 名前が選択されていない場合はここで処理を中止
+        }
+        var name = nameSelect.value === 'その他' ? document.getElementById('other-name-input').value : nameSelect.value;
+        var comment = document.getElementById('comment-input').value;
+        var preferredDates = Array.from(document.querySelectorAll('.preferred .date.bg-yellow-300')).map(el => el.textContent.trim()).join(', ');
+        var notPreferredDates = Array.from(document.querySelectorAll('.not-preferred .date.bg-yellow-300')).map(el => el.textContent.trim()).join(', ');
+        var email = document.getElementById('email-input').value;
+
+        // EmailJSを使用してメールを送信
+        console.log(preferredDates, notPreferredDates);
+        emailjs.send("service_v7cenku", "template_rm69kao", {
+            "name": name,
+            "comment": comment,
+            "preferred_dates": preferredDates,
+            "not_preferred_dates": notPreferredDates,
+            "email": email
+        }).then(function(response) {
+            alert(`送信できました，ありがとうございます！\n回答者の名前: ${name}\nコメント: ${comment}\n希望日: ${preferredDates}\n希望しない日: ${notPreferredDates}`);
+  }, function(error) {
+        }, function(error) {
+            alert('送信失敗．もう一度試しても失敗する場合はrosai041321@gmail.comに連絡をください: ' + error);
+        });
+    });
+});
+</script>
+
+    <div class="mb-8">
+      <span class="step-button">STEP 2</span>
+      <p class="text-gray-700 text-sm mt-2"> 希望する日を選択してください。奇数週の水曜以外でお願いします。また木曜日は循環器医師担当です。</p>
+      <div class="mt-2 p-4 border border-gray-300 rounded preferred bg-white">
+        <div class="flex justify-between items-center mb-4">
+          <button class="prev-month"><i class="fas fa-chevron-left"></i></button>
+          <span class="month-title font-bold">2023年 12月</span>
+          <button class="next-month"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="grid grid-cols-7 gap-1 calendar-grid">
+          <!-- Calendar days will be generated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <span class="step-button">STEP 3</span>
+      <p class="text-gray-700 text-sm mt-2"> 希望しない日を選択してください．(翌日外勤・外来でできない場合も含む）</p>
+      <div class="mt-2 p-4 border border-gray-300 rounded not-preferred bg-white">
+        <div class="flex justify-between items-center mb-4">
+          <button class="prev-month"><i class="fas fa-chevron-left"></i></button>
+          <span class="month-title font-bold">2023年 12月</span>
+          <button class="next-month"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="grid grid-cols-7 gap-1 calendar-grid">
+          <!-- Calendar days will be generated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <span class="step-button">STEP 4</span>
+      <p class="text-gray-700 text-sm mt-2">コメントがあればお願いします。<strong>（いつも当直だが、日直がよい。またはその逆の先生がいらっしゃればコメントしてください。可能ならご希望に添えるようにいたします。)</strong> </p>
+    <textarea id="comment-input" class="mt-2 p-2 border border-gray-300 rounded w-full" placeholder="コメント"></textarea>
+    </div>
+    <div class="mb-8">
+      <label for="email-input" class="block text-sm font-medium text-gray-700">メールアドレス（任意ですが，登録すると回答結果がメールで届くので，自分の回答結果をあとで確認できます．）</label>
+      <input type="email" id="email-input" name="email" placeholder="your.email@example.com" class="mt-1 p-2 border border-gray-300 rounded w-full">
+    </div>
+    <div>
+     <button id="generate-url">送信する</button>
+    </div>
+  </div>
 </body>
 </html>
