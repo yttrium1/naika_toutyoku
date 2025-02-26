@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+.date-cell {
+      flex-direction: column;
+      height: auto;
+      min-height: 60px;
+      padding: 0.5rem 0;
+    }<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -259,11 +264,33 @@
       background-color: var(--white);
     }
 
-    .date-cell {
-      flex-direction: column;
-      height: auto;
-      min-height: 60px;
-      padding: 0.5rem 0;
+    .date-unavailable {
+      background-color: #f5f5f5 !important;
+      color: #aaa !important;
+      cursor: not-allowed !important;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .date-unavailable::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        135deg,
+        rgba(255, 0, 0, 0.1),
+        rgba(255, 0, 0, 0.1) 5px,
+        rgba(255, 255, 255, 0.2) 5px,
+        rgba(255, 255, 255, 0.2) 10px
+      );
+      pointer-events: none;
+    }
+    
+    .date-unavailable:hover {
+      background-color: #f5f5f5 !important;
     }
 
     .date:hover, .day:hover, .duty:hover {
@@ -664,6 +691,29 @@
             "2025-11-24", // 振替休日
           ];
 
+          // 特定の禁止された日付リスト
+          const specificUnavailableDates = [
+            "2024-04-05", "2024-05-31", "2024-06-07", "2024-07-05", 
+            "2024-08-30", "2024-09-06", "2024-10-04", "2024-11-29", "2024-12-14",
+            "2025-04-05", "2025-05-31", "2025-06-07", "2025-07-05", 
+            "2025-08-30", "2025-09-06", "2025-10-04", "2025-11-29", "2025-12-14"
+          ];
+
+          // 第1、3、5水曜日かどうかをチェックする関数
+          const isUnavailableWednesday = (date) => {
+            // 水曜日(3)かチェック
+            if (date.getDay() !== 3) return false;
+            
+            // 月の何週目かを計算
+            const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+            const dayOfWeekOfFirstDay = firstDayOfMonth.getDay();
+            const firstWednesdayDate = 1 + (3 - dayOfWeekOfFirstDay + 7) % 7;
+            const weekNumber = Math.ceil((date.getDate() - firstWednesdayDate) / 7) + 1;
+            
+            // 第1、3、5水曜日ならtrue
+            return weekNumber === 1 || weekNumber === 3 || weekNumber === 5;
+          };
+
           // Check if date is a holiday
           const isHoliday = (date) => {
             const month = date.getMonth() + 1;
@@ -672,25 +722,47 @@
             return holidays.includes(dateString);
           };
           
+          // 日付が利用不可かどうかをチェック
+          const isUnavailableDate = (date) => {
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const dateString = `${date.getFullYear()}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+            return isUnavailableWednesday(date) || specificUnavailableDates.includes(dateString);
+          };
+          
           // Add day cells to the calendar
           for (let i = 1; i <= daysInMonth; i++) {
             let date = new Date(month.getFullYear(), month.getMonth(), i);
             let dayOfWeek = date.getDay();
             let isSpecialDate = isHoliday(date);
-    
-            if (dayOfWeek === 0 || dayOfWeek === 6 || isSpecialDate) {
-              grid.innerHTML += `
-                <div class="date-cell">
-                  <div class="duty" style="padding: 4px; font-size: 14px;">${i}日</div>
-                  <div class="day" style="padding: 4px; font-size: 14px;">${i}当</div>
-                </div>`;
+            let isUnavailable = isUnavailableDate(date);
+            
+            // 利用不可の日付の場合、特別なクラスを適用
+            if (isUnavailable) {
+              if (dayOfWeek === 0 || dayOfWeek === 6 || isSpecialDate) {
+                grid.innerHTML += `
+                  <div class="date-cell date-unavailable">
+                    <div class="duty" style="padding: 4px; font-size: 14px;">${i}日</div>
+                    <div class="day" style="padding: 4px; font-size: 14px;">${i}当</div>
+                  </div>`;
+              } else {
+                grid.innerHTML += `<div class="date date-unavailable">${i}</div>`;
+              }
             } else {
-              grid.innerHTML += `<div class="date">${i}</div>`;
+              if (dayOfWeek === 0 || dayOfWeek === 6 || isSpecialDate) {
+                grid.innerHTML += `
+                  <div class="date-cell">
+                    <div class="duty" style="padding: 4px; font-size: 14px;">${i}日</div>
+                    <div class="day" style="padding: 4px; font-size: 14px;">${i}当</div>
+                  </div>`;
+              } else {
+                grid.innerHTML += `<div class="date">${i}</div>`;
+              }
             }
           }
 
-          // Add event listeners to date elements
-          grid.querySelectorAll('.date, .duty, .day').forEach(date => {
+          // Add event listeners to date elements (except unavailable dates)
+          grid.querySelectorAll('.date:not(.date-unavailable), .duty:not(.date-unavailable), .day:not(.date-unavailable)').forEach(date => {
             date.addEventListener('click', function() {
               this.classList.toggle('bg-yellow-300');
               console.log('Date clicked:', this.textContent);
