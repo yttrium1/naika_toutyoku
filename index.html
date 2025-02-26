@@ -153,6 +153,19 @@
       border-color: var(--primary-dark);
       background-color: rgba(59, 130, 246, 0.05);
     }
+    
+    optgroup {
+      font-weight: 700;
+      color: var(--primary-dark);
+      background-color: rgba(59, 130, 246, 0.1);
+    }
+    
+    option {
+      font-weight: normal;
+      color: var(--text);
+      background-color: white;
+      padding: 8px;
+    }
 
     .form-select:focus, .form-input:focus, .form-textarea:focus {
       outline: none;
@@ -426,30 +439,40 @@
           <div class="custom-select-wrapper" style="position: relative;">
             <select id="name-select" class="form-select">
               <option value="">回答者の名前を選択してください(敬称略）</option>
-              <option value="西中川">西中川</option>
-              <option value="大場">大場</option>
-              <option value="荻野">荻野</option>
-              <option value="折原">折原</option>
-              <option value="池上">池上</option>
-              <option value="中島">中島</option>
-              <option value="石井">石井</option>
-              <option value="関">関</option>
-              <option value="河野">河野</option>
-              <option value="松村">松村</option>
-              <option value="鈴木">鈴木</option>
-              <option value="伊藤">伊藤</option>
-              <option value="堀">堀</option>
-              <option value="堂脇">堂脇</option>
-              <option value="宮野">宮野</option>
-              <option value="吉玉">吉玉</option>
-              <option value="浅原">浅原</option>
-              <option value="高亀">高亀</option>
-              <option value="杉田">杉田</option>
-              <option value="小泉">小泉</option>
-              <option value="中村">中村</option>
-              <option value="有上">有上</option>
-              <option value="久次米">久次米</option>
-              <option value="その他">その他</option>
+              <optgroup label="消化器内科">
+                <option value="西中川">西中川</option>
+                <option value="大場">大場</option>
+                <option value="荻野">荻野</option>
+                <option value="折原">折原</option>
+                <option value="池上">池上</option>
+                <option value="中島">中島</option>
+                <option value="石井">石井</option>
+                <option value="関">関</option>
+              </optgroup>
+              <optgroup label="呼吸器内科">
+                <option value="河野">河野</option>
+                <option value="松村">松村</option>
+                <option value="鈴木">鈴木</option>
+                <option value="伊藤">伊藤</option>
+                <option value="堀">堀</option>
+                <option value="堂脇">堂脇</option>
+              </optgroup>
+              <optgroup label="腎臓内科">
+                <option value="宮野">宮野</option>
+                <option value="杉田">杉田</option>
+              </optgroup>
+              <optgroup label="循環器内科">
+                <option value="吉玉">吉玉</option>
+                <option value="浅原">浅原</option>
+                <option value="高亀">高亀</option>
+                <option value="小泉">小泉</option>
+                <option value="中村">中村</option>
+                <option value="有上">有上</option>
+                <option value="久次米">久次米</option>
+              </optgroup>
+              <optgroup label="その他">
+                <option value="その他">その他</option>
+              </optgroup>
             </select>
             <div class="select-icon" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--primary);">
               <i class="fas fa-user-md"></i>
@@ -552,9 +575,17 @@
       });
 
       // Calendar functionality
+        // Calculate which month to display based on current date
       let now = new Date();
-      // Use February 2025 as a fixed date for demonstration
-      let currentMonth = new Date(2025, 1, 1); // February 2025
+      let currentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+      // If current day is 10 or less, show next month (n+1)
+      // If current day is 11 or more, show the month after next (n+2)
+      if (now.getDate() <= 10) {
+        currentMonth.setMonth(currentMonth.getMonth() + 1);
+      } else {
+        currentMonth.setMonth(currentMonth.getMonth() + 2);
+      }
 
       const monthTitles = document.querySelectorAll('.month-title');
       const calendarGrids = document.querySelectorAll('.calendar-grid');
