@@ -1,8 +1,28 @@
 .date-cell {
+      display: flex;
       flex-direction: column;
       height: auto;
-      min-height: 60px;
-      padding: 0.5rem 0;
+      min-height: 80px;
+      border: 1px solid var(--border);
+      background-color: var(--white);
+    }
+    
+    .duty, .day {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px 4px;
+      margin: 2px;
+      font-size: 14px;
+      flex-grow: 1;
+      width: auto;
+      cursor: pointer;
+      transition: var(--transition);
+      border-radius: 4px;
+    }
+    
+    .duty:hover, .day:hover {
+      background-color: rgba(59, 130, 246, 0.1);
     }<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -204,6 +224,8 @@
     .month-title {
       font-weight: 700;
       font-size: 1.1rem;
+      text-align: center;
+      flex-grow: 1;
     }
 
     .calendar-nav {
@@ -465,7 +487,7 @@
         <div class="form-group">
           <div class="custom-select-wrapper" style="position: relative;">
             <select id="name-select" class="form-select">
-              <option value="">回答者の名前を選択してください(敬称略）</option>
+              <option value="">回答者を選択してください（敬称略）</option>
               <optgroup label="消化器内科">
                 <option value="西中川">西中川</option>
                 <option value="大場">大場</option>
@@ -745,14 +767,14 @@
               if (isPreferredCalendar && isUnavailable) {
                 grid.innerHTML += `
                   <div class="date-cell">
-                    <div class="duty date-unavailable" style="padding: 4px; font-size: 14px;">${i}日</div>
-                    <div class="day" style="padding: 4px; font-size: 14px;">${i}当</div>
+                    <div class="duty date-unavailable">${i}日</div>
+                    <div class="day">${i}当</div>
                   </div>`;
               } else {
                 grid.innerHTML += `
                   <div class="date-cell">
-                    <div class="duty" style="padding: 4px; font-size: 14px;">${i}日</div>
-                    <div class="day" style="padding: 4px; font-size: 14px;">${i}当</div>
+                    <div class="duty">${i}日</div>
+                    <div class="day">${i}当</div>
                   </div>`;
               }
             } else {
