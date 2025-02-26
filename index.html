@@ -624,7 +624,9 @@
         });
 
         // Update calendar grids
-        calendarGrids.forEach(grid => {
+        calendarGrids.forEach((grid, gridIndex) => {
+          const isPreferredCalendar = grid.closest('.calendar-container').classList.contains('preferred');
+          
           grid.innerHTML = ''; // Clear the calendar grid
 
           // Get the first day of the month
@@ -737,32 +739,34 @@
             let isSpecialDate = isHoliday(date);
             let isUnavailable = isUnavailableDate(date);
             
-            // 利用不可の日付の場合、特別なクラスを適用
-            if (isUnavailable) {
-              if (dayOfWeek === 0 || dayOfWeek === 6 || isSpecialDate) {
+            // 特別な日付処理（週末や祝日）
+            if (dayOfWeek === 0 || dayOfWeek === 6 || isSpecialDate) {
+              // 希望するカレンダーでかつ選択不可の日付の場合
+              if (isPreferredCalendar && isUnavailable) {
                 grid.innerHTML += `
-                  <div class="date-cell date-unavailable">
-                    <div class="duty" style="padding: 4px; font-size: 14px;">${i}日</div>
+                  <div class="date-cell">
+                    <div class="duty date-unavailable" style="padding: 4px; font-size: 14px;">${i}日</div>
                     <div class="day" style="padding: 4px; font-size: 14px;">${i}当</div>
                   </div>`;
               } else {
-                grid.innerHTML += `<div class="date date-unavailable">${i}</div>`;
-              }
-            } else {
-              if (dayOfWeek === 0 || dayOfWeek === 6 || isSpecialDate) {
                 grid.innerHTML += `
                   <div class="date-cell">
                     <div class="duty" style="padding: 4px; font-size: 14px;">${i}日</div>
                     <div class="day" style="padding: 4px; font-size: 14px;">${i}当</div>
                   </div>`;
+              }
+            } else {
+              // 平日の処理
+              if (isPreferredCalendar && isUnavailable) {
+                grid.innerHTML += `<div class="date date-unavailable">${i}</div>`;
               } else {
                 grid.innerHTML += `<div class="date">${i}</div>`;
               }
             }
           }
 
-          // Add event listeners to date elements (except unavailable dates)
-          grid.querySelectorAll('.date:not(.date-unavailable), .duty:not(.date-unavailable), .day:not(.date-unavailable)').forEach(date => {
+          // 選択可能な要素にのみイベントリスナーを追加
+          grid.querySelectorAll('.date:not(.date-unavailable), .duty:not(.date-unavailable), .day').forEach(date => {
             date.addEventListener('click', function() {
               this.classList.toggle('bg-yellow-300');
               console.log('Date clicked:', this.textContent);
