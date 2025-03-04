@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>内科 日当直希望 | モダンフォーム</title>
+  <title>内科 日当直希望 | </title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -319,7 +319,7 @@
     }
 
     .date {
-      height: 46px;
+      height: 38px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -337,7 +337,7 @@
       display: flex;
       flex-direction: column;
       height: auto;
-      min-height: 70px;
+      min-height: 56px;
       border: 1px solid var(--border);
       background-color: var(--card-bg);
       padding: 4px;
@@ -349,9 +349,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 8px 4px;
+      padding: 5px 2px;
       margin: 2px 0;
-      font-size: 14px;
+      font-size: 13px;
       flex-grow: 1;
       width: 100%;
       cursor: pointer;
@@ -389,11 +389,12 @@
     }
     
     .date-unavailable {
-      background-color: #f1f5f9 !important;
+      background-color: #f8fafc !important;
       color: var(--text-lighter) !important;
       cursor: not-allowed !important;
       position: relative;
       overflow: hidden;
+      border: 1px dashed #cbd5e1 !important;
     }
     
     .date-unavailable::after {
@@ -403,13 +404,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: repeating-linear-gradient(
-        135deg,
-        rgba(239, 68, 68, 0.08),
-        rgba(239, 68, 68, 0.08) 5px,
-        rgba(255, 255, 255, 0.1) 5px,
-        rgba(255, 255, 255, 0.1) 10px
-      );
+      background-color: rgba(239, 68, 68, 0.08);
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l10 10m0-10L1 11' stroke='rgba(239, 68, 68, 0.15)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-size: 8px 8px;
       pointer-events: none;
     }
     
@@ -596,35 +593,7 @@
       margin-top: 0.5rem;
     }
 
-    /* カレンダー日付のバッジ */
-    .badge {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      background: var(--primary);
-      color: white;
-      font-size: 0.7rem;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      animation: pulse 2s infinite;
-    }
 
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
-      }
-      70% {
-        box-shadow: 0 0 0 5px rgba(99, 102, 241, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
-      }
-    }
 
     /* アニメーション */
     @keyframes fadeIn {
@@ -728,7 +697,7 @@
     <div class="card">
       <div class="header">
         <h1><i class="fas fa-calendar-alt" style="margin-right: 12px;"></i>内科日当直希望登録</h1>
-        <p>モダンで使いやすいインターフェース | 毎月8日が締め切りです</p>
+        <p>毎月8日が締め切りです</p>
       </div>
 
       <div class="step">
@@ -859,7 +828,7 @@
 
     <div class="footer">
       <div class="brand"><i class="fas fa-hospital-user"></i>内科当直システム</div>
-      <p>医療チームのための効率的なスケジュール管理</p>
+
     </div>
   </div>
 
@@ -1017,10 +986,7 @@
             return isUnavailableWednesday(date) || specificUnavailableDates.includes(dateString);
           };
 
-          // 締め切り日かをチェック（8日）
-          const isDeadlineDay = (date) => {
-            return date.getDate() === 8;
-          };
+          // 締め切り日の表示は削除
           
           // Add day cells to the calendar
           for (let i = 1; i <= daysInMonth; i++) {
@@ -1028,7 +994,6 @@
             let dayOfWeek = date.getDay();
             let isSpecialDate = isHoliday(date);
             let isUnavailable = isUnavailableDate(date);
-            let isDeadline = isDeadlineDay(date);
             
             // 特別な日付処理（週末や祝日）
             if (dayOfWeek === 0 || dayOfWeek === 6 || isSpecialDate) {
@@ -1036,22 +1001,22 @@
               if (isPreferredCalendar && isUnavailable) {
                 grid.innerHTML += `
                   <div class="date-cell">
-                    <div class="duty date-unavailable">${i}日${isDeadline ? '<span class="badge">!</span>' : ''}</div>
+                    <div class="duty date-unavailable">${i}日</div>
                     <div class="day">${i}当</div>
                   </div>`;
               } else {
                 grid.innerHTML += `
                   <div class="date-cell">
-                    <div class="duty">${i}日${isDeadline ? '<span class="badge">!</span>' : ''}</div>
+                    <div class="duty">${i}日</div>
                     <div class="day">${i}当</div>
                   </div>`;
               }
             } else {
               // 平日の処理
               if (isPreferredCalendar && isUnavailable) {
-                grid.innerHTML += `<div class="date date-unavailable">${i}${isDeadline ? '<span class="badge">!</span>' : ''}</div>`;
+                grid.innerHTML += `<div class="date date-unavailable">${i}</div>`;
               } else {
-                grid.innerHTML += `<div class="date">${i}${isDeadline ? '<span class="badge">!</span>' : ''}</div>`;
+                grid.innerHTML += `<div class="date">${i}</div>`;
               }
             }
           }
