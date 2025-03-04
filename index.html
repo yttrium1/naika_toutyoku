@@ -394,7 +394,7 @@
       cursor: not-allowed !important;
       position: relative;
       overflow: hidden;
-      border: 1px dashed #cbd5e1 !important;
+      border: 1px dashed rgba(99, 102, 241, 0.3) !important;
     }
     
     .date-unavailable::after {
@@ -404,8 +404,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(239, 68, 68, 0.08);
-      background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l10 10m0-10L1 11' stroke='rgba(239, 68, 68, 0.15)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-color: rgba(99, 102, 241, 0.05);
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l10 10m0-10L1 11' stroke='rgba(99, 102, 241, 0.25)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
       background-size: 8px 8px;
       pointer-events: none;
     }
@@ -596,6 +596,21 @@
 
 
     /* アニメーション */
+    /* 紙飛行機アニメーション用スタイル */
+    @keyframes flyAway {
+      0% {
+        transform: scale(1) translateX(0);
+        opacity: 1;
+      }
+      20% {
+        transform: scale(0.8) translateX(0) translateY(-5px);
+      }
+      100% {
+        transform: scale(0.2) translateX(500px) translateY(-100px);
+        opacity: 0;
+      }
+    }
+    
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -605,6 +620,49 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+    
+    .paper-plane {
+      display: inline-block;
+      margin-right: 10px;
+      transform-origin: center;
+      transition: transform 0.3s;
+    }
+    
+    .fly-away {
+      animation: flyAway 1.5s ease-out forwards;
+    }
+    
+    .btn-submit-container {
+      position: relative;
+      width: 100%;
+      margin-top: 1.5rem;
+      overflow: hidden;
+      border-radius: var(--radius);
+    }
+    
+    .btn-success-message {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, var(--success), var(--accent));
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+      padding: 1rem;
+    }
+    
+    .btn-success-message.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .card {
@@ -761,7 +819,7 @@
           <div class="step-number">2</div>
           <div class="step-title">希望する日</div>
         </div>
-        <p class="step-description">木曜日は循環器医師のみ。カレンダーで日付をクリックすると選択できます。</p>
+        <p class="step-description">木曜日は循環器医師のみです。</p>
         <div class="calendar-container preferred">
           <div class="calendar-header">
             <div class="calendar-nav">
@@ -783,7 +841,7 @@
           <div class="step-number">3</div>
           <div class="step-title">希望しない日</div>
         </div>
-        <p class="step-description">（翌日外勤・外来でできない場合も含む）選択するとマークされます。</p>
+        <p class="step-description">　翌日外勤・外来のためできない場合も含みます</p>
         <div class="calendar-container not-preferred">
           <div class="calendar-header">
             <div class="calendar-nav">
@@ -805,7 +863,7 @@
           <div class="step-number">4</div>
           <div class="step-title">コメント</div>
         </div>
-        <p class="step-description">特別な要望や備考があればこちらにご記入ください。</p>
+        <p class="step-description">　特別な希望やメッセージがあれば入力してください。</p>
         <div class="form-group">
           <textarea id="comment-input" class="form-textarea" placeholder="コメントを入力してください"></textarea>
         </div>
@@ -820,9 +878,14 @@
         <div class="form-group">
           <input type="email" id="email-input" class="form-input" placeholder="your.email@example.com">
         </div>
-        <button id="generate-url" class="btn btn-submit">
-          <i class="fas fa-paper-plane"></i>送信する
-        </button>
+        <div class="btn-submit-container">
+          <button id="generate-url" class="btn btn-submit">
+            <span class="paper-plane"><i class="fas fa-paper-plane"></i></span>送信する
+          </button>
+          <div class="btn-success-message" id="success-message">
+            <i class="fas fa-check-circle" style="margin-right: 10px;"></i>送信完了！ありがとうございます
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1063,11 +1126,11 @@
 
       // Handle form submission
       const generateUrlButton = document.getElementById('generate-url');
+      const successMessage = document.getElementById('success-message');
+      const paperPlane = document.querySelector('.paper-plane');
+      
       generateUrlButton.addEventListener('click', function(event) {
         event.preventDefault();
-
-        // アニメーション効果
-        this.classList.add('sending');
         
         // Get name
         const nameSelect = document.getElementById('name-select');
@@ -1077,13 +1140,11 @@
           name = otherNameInput.value;
           if (!name.trim()) {
             document.getElementById('name-error').style.display = 'block';
-            this.classList.remove('sending');
             nameSelect.focus();
             return;
           }
         } else if (!name) {
           document.getElementById('name-error').style.display = 'block';
-          this.classList.remove('sending');
           nameSelect.focus();
           return;
         } else {
@@ -1093,19 +1154,24 @@
         // Get form data
         const comment = document.querySelector('#comment-input').value;
         const preferredDates = Array.from(document.querySelectorAll('.preferred .date.bg-yellow-300, .preferred .duty.bg-yellow-300, .preferred .day.bg-yellow-300')).map(el => {
-          // バッジ要素を含む場合は、テキストコンテンツからバッジのテキストを除去
           let text = el.textContent.trim();
-          return text.replace('!', ''); // バッジの「!」を削除
+          return text;
         });
         const notPreferredDates = Array.from(document.querySelectorAll('.not-preferred .date.bg-yellow-300, .not-preferred .duty.bg-yellow-300, .not-preferred .day.bg-yellow-300')).map(el => {
           let text = el.textContent.trim();
-          return text.replace('!', '');
+          return text;
         });
         const email = document.getElementById('email-input').value;
 
-        // ボタンの状態変更
-        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 送信中...';
-        this.disabled = true;
+        // 紙飛行機アニメーション開始
+        paperPlane.classList.add('fly-away');
+        generateUrlButton.style.pointerEvents = 'none';
+        
+        // 送信エフェクト後に成功メッセージを表示
+        setTimeout(() => {
+          generateUrlButton.style.opacity = '0';
+          successMessage.classList.add('show');
+        }, 800);
 
         // Prepare email content
         const summary = `回答者の名前: ${name}\n希望日: ${preferredDates.join(', ')}\n希望しない日: ${notPreferredDates.join(', ')}\nコメント: ${comment}`;
@@ -1118,18 +1184,25 @@
           "not_preferred_dates": notPreferredDates.join(', '),
           "email": email
         }).then(function(response) {
-          generateUrlButton.innerHTML = '<i class="fas fa-check"></i> 送信完了!';
           setTimeout(() => {
-            generateUrlButton.innerHTML = '<i class="fas fa-paper-plane"></i> 送信する';
-            generateUrlButton.disabled = false;
-          }, 3000);
-          
-          alert(`送信できました，ありがとうございます！\n回答者の名前: ${name}\nコメント: ${comment}\n希望日: ${preferredDates.join(', ')}\n希望しない日: ${notPreferredDates.join(', ')}`);
+            alert(`送信できました，ありがとうございます！\n回答者の名前: ${name}\nコメント: ${comment}\n希望日: ${preferredDates.join(', ')}\n希望しない日: ${notPreferredDates.join(', ')}`);
+            
+            // 3秒後に元の状態に戻す
+            setTimeout(() => {
+              successMessage.classList.remove('show');
+              generateUrlButton.style.opacity = '1';
+              paperPlane.classList.remove('fly-away');
+              generateUrlButton.style.pointerEvents = 'auto';
+            }, 3000);
+          }, 1500);
         }, function(error) {
+          paperPlane.classList.remove('fly-away');
           generateUrlButton.innerHTML = '<i class="fas fa-exclamation-triangle"></i> エラー';
+          generateUrlButton.style.opacity = '1';
+          generateUrlButton.style.pointerEvents = 'auto';
+          
           setTimeout(() => {
-            generateUrlButton.innerHTML = '<i class="fas fa-paper-plane"></i> 送信する';
-            generateUrlButton.disabled = false;
+            generateUrlButton.innerHTML = '<span class="paper-plane"><i class="fas fa-paper-plane"></i></span>送信する';
           }, 3000);
           
           alert('送信失敗．もう一度試しても失敗する場合はrosai041321@gmail.comに連絡をください: ' + error);
