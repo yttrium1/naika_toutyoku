@@ -3,39 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>内科 日当直希望 | </title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <title>内科 日当直希望 </title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      /* カラーパレット */
-      --primary: #6366f1;
-      --primary-light: #818cf8;
-      --primary-dark: #4f46e5;
-      --secondary: #ec4899;
-      --secondary-light: #f472b6;
-      --accent: #10b981;
-      --accent-light: #34d399;
-      --warning: #f59e0b;
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --secondary: #f59e0b;
+      --secondary-light: #fcd34d;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --background: #f3f4f6;
+      --white: #ffffff;
       --danger: #ef4444;
       --success: #10b981;
-      --background: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #334155;
-      --text-light: #64748b;
-      --text-lighter: #94a3b8;
-      --border: #e2e8f0;
-      --border-focus: rgba(99, 102, 241, 0.5);
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --card: #ffffff;
+      --border: #e5e7eb;
       --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      --radius-sm: 0.25rem;
       --radius: 0.5rem;
-      --radius-md: 0.75rem;
-      --radius-lg: 1rem;
-      --radius-full: 9999px;
-      --transition: all 0.25s ease;
+      --transition: all 0.3s ease;
     }
 
     * {
@@ -45,95 +32,57 @@
     }
 
     body {
-      font-family: 'Noto Sans JP', 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-      background-attachment: fixed;
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: var(--background);
       color: var(--text);
       line-height: 1.6;
-      min-height: 100vh;
-      padding: 2rem 1rem;
     }
 
     .container {
       max-width: 900px;
-      margin: 0 auto;
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
 
     .card {
-      background-color: var(--card-bg);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-md);
+      background-color: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       overflow: hidden;
       margin-bottom: 2rem;
       transition: var(--transition);
-      position: relative;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(5px);
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
     }
 
     .card:hover {
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
 
     .header {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      padding: 2.5rem 2rem;
+      color: var(--white);
+      padding: 1.5rem;
       text-align: center;
       position: relative;
-      overflow: hidden;
-    }
-
-    .header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-      transform: rotate(30deg);
     }
 
     .header h1 {
-      font-family: 'Poppins', 'Noto Sans JP', sans-serif;
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
-      letter-spacing: 0.5px;
-      position: relative;
     }
 
     .header p {
-      font-weight: 400;
+      font-weight: 300;
       opacity: 0.9;
-      font-size: 1.1rem;
-      position: relative;
     }
 
     .step {
       padding: 2rem;
       border-bottom: 1px solid var(--border);
-      transition: var(--transition);
     }
 
     .step:last-child {
       border-bottom: none;
-    }
-
-    .step:hover {
-      background-color: rgba(99, 102, 241, 0.03);
     }
 
     .step-header {
@@ -143,54 +92,48 @@
     }
 
     .step-number {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-full);
+      background-color: var(--primary);
+      color: var(--white);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 600;
+      font-weight: 700;
       margin-right: 1rem;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
     }
 
     .step-title {
-      font-weight: 600;
-      font-size: 1.3rem;
-      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 1.2rem;
     }
 
     .step-description {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       color: var(--text-light);
-      font-size: 0.95rem;
-      padding-left: 3rem;
+      font-size: 0.9rem;
     }
 
     .form-group {
-      margin-bottom: 1.5rem;
-      position: relative;
+      margin-bottom: 1rem;
     }
 
     .form-label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: 500;
-      color: var(--text);
     }
 
     .form-select, .form-input, .form-textarea {
       width: 100%;
-      padding: 0.85rem 1rem;
+      padding: 0.75rem 1rem;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      font-family: 'Noto Sans JP', 'Poppins', sans-serif;
+      font-family: 'Noto Sans JP', sans-serif;
       font-size: 1rem;
       transition: var(--transition);
-      background-color: var(--card-bg);
-      color: var(--text);
+      background-color: var(--white);
     }
     
     .form-select {
@@ -202,71 +145,62 @@
       background-size: 5px 5px, 5px 5px;
       background-repeat: no-repeat;
       padding-right: 3rem;
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       border-left: 3px solid var(--primary);
     }
     
     .form-select:hover {
-      border-color: var(--primary-light);
-      background-color: rgba(99, 102, 241, 0.05);
+      border-color: var(--primary-dark);
+      background-color: rgba(59, 130, 246, 0.05);
     }
     
     optgroup {
-      font-weight: 600;
-      color: var(--primary);
-      background-color: rgba(99, 102, 241, 0.08);
-      padding: 5px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      background-color: rgba(59, 130, 246, 0.1);
     }
     
     option {
       font-weight: normal;
       color: var(--text);
       background-color: white;
-      padding: 10px;
+      padding: 8px;
     }
 
     .form-select:focus, .form-input:focus, .form-textarea:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--border-focus);
-      transform: translateY(-2px);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      transform: translateY(-1px);
     }
 
     .form-textarea {
-      min-height: 100px;
+      min-height: 80px;
       resize: vertical;
-      font-family: 'Noto Sans JP', sans-serif;
     }
 
     .calendar-container {
-      margin-top: 1.5rem;
+      margin-top: 1rem;
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      background-color: var(--card-bg);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      border: 1px solid var(--border);
-    }
-
-    .calendar-container:hover {
-      box-shadow: var(--shadow-md);
+      background-color: var(--white);
     }
 
     .calendar-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
+      padding: 1rem;
+      background-color: var(--primary);
+      color: var(--white);
     }
 
     .month-title {
-      font-weight: 600;
-      font-size: 1.2rem;
+      font-weight: 700;
+      font-size: 1.1rem;
       text-align: center;
       flex-grow: 1;
-      letter-spacing: 0.5px;
     }
 
     .calendar-nav {
@@ -277,37 +211,34 @@
     .calendar-nav button {
       background-color: rgba(255, 255, 255, 0.2);
       border: none;
-      color: white;
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-full);
+      color: var(--white);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: var(--transition);
-      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .calendar-nav button:hover {
       background-color: rgba(255, 255, 255, 0.3);
-      transform: scale(1.05);
     }
 
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      background-color: var(--card-bg);
-      gap: 2px;
-      padding: 8px;
+      background-color: var(--white);
+      gap: 1px;
     }
 
     .calendar-day {
-      padding: 0.8rem 0.25rem;
+      padding: 0.5rem 0.25rem;
       text-align: center;
-      font-weight: 600;
-      background-color: rgba(99, 102, 241, 0.08);
-      border-radius: var(--radius-sm);
+      font-weight: 700;
+      background-color: rgba(59, 130, 246, 0.1);
+      border-bottom: 1px solid var(--border);
     }
 
     .calendar-day-sun {
@@ -319,7 +250,7 @@
     }
 
     .date {
-      height: 38px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -327,22 +258,17 @@
       transition: var(--transition);
       border: 1px solid var(--border);
       position: relative;
-      background-color: var(--card-bg);
-      border-radius: var(--radius-sm);
-      margin: 2px;
-      font-weight: 500;
+      background-color: var(--white);
     }
 
     .date-cell {
       display: flex;
       flex-direction: column;
       height: auto;
-      min-height: 56px;
+      min-height: 60px;
       border: 1px solid var(--border);
-      background-color: var(--card-bg);
-      padding: 4px;
-      border-radius: var(--radius-sm);
-      margin: 2px;
+      background-color: var(--white);
+      padding: 2px;
     }
 
     .duty, .day {
@@ -350,51 +276,42 @@
       justify-content: center;
       align-items: center;
       padding: 5px 2px;
-      margin: 2px 0;
-      font-size: 13px;
+      margin: 1px 0;
+      font-size: 14px;
       flex-grow: 1;
       width: 100%;
       cursor: pointer;
       transition: var(--transition);
-      border-radius: var(--radius-sm);
-      font-weight: 500;
+      border-radius: 4px;
     }
     
     .duty:hover, .day:hover {
-      background-color: rgba(99, 102, 241, 0.1);
-      transform: translateY(-1px);
+      background-color: rgba(59, 130, 246, 0.1);
     }
 
     .date:hover {
-      background-color: rgba(99, 102, 241, 0.1);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-sm);
+      background-color: rgba(59, 130, 246, 0.1);
     }
 
     .bg-yellow-300 {
-      background: linear-gradient(145deg, var(--accent), var(--accent-light)) !important;
-      color: white !important;
-      font-weight: 600 !important;
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+      background-color: var(--secondary-light) !important;
+      font-weight: 700;
     }
 
     .preferred .bg-yellow-300 {
-      background: linear-gradient(145deg, var(--success), var(--accent-light)) !important;
-      transform: translateY(-2px);
+      background-color: rgba(16, 185, 129, 0.3) !important;
     }
 
     .not-preferred .bg-yellow-300 {
-      background: linear-gradient(145deg, var(--danger), #f87171) !important;
-      transform: translateY(-2px);
+      background-color: rgba(239, 68, 68, 0.3) !important;
     }
     
     .date-unavailable {
-      background-color: #f8fafc !important;
-      color: var(--text-lighter) !important;
+      background-color: #f5f5f5 !important;
+      color: #aaa !important;
       cursor: not-allowed !important;
       position: relative;
       overflow: hidden;
-      border: 1px dashed rgba(99, 102, 241, 0.3) !important;
     }
     
     .date-unavailable::after {
@@ -404,69 +321,51 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(99, 102, 241, 0.05);
-      background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l10 10m0-10L1 11' stroke='rgba(99, 102, 241, 0.25)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-size: 8px 8px;
+      background: repeating-linear-gradient(
+        135deg,
+        rgba(255, 0, 0, 0.1),
+        rgba(255, 0, 0, 0.1) 5px,
+        rgba(255, 255, 255, 0.2) 5px,
+        rgba(255, 255, 255, 0.2) 10px
+      );
       pointer-events: none;
     }
     
     .date-unavailable:hover {
-      background-color: #f1f5f9 !important;
-      transform: none !important;
-      box-shadow: none !important;
+      background-color: #f5f5f5 !important;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(145deg, var(--primary), var(--primary-dark));
-      color: white;
-      font-weight: 600;
-      padding: 0.85rem 1.5rem;
+      display: inline-block;
+      background-color: var(--primary);
+      color: var(--white);
+      font-weight: 700;
+      padding: 0.75rem 1.5rem;
       border-radius: var(--radius);
-      border: none;
+      border: 2px solid var(--primary);
       cursor: pointer;
       transition: var(--transition);
       text-align: center;
       font-size: 1rem;
       text-decoration: none;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-      transform: translateY(-100%);
-      transition: transform 0.4s ease;
     }
 
     .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
-    }
-
-    .btn:hover::before {
-      transform: translateY(0);
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
     }
 
     .btn-submit {
-      background: linear-gradient(145deg, var(--accent), var(--success));
+      background: linear-gradient(45deg, var(--success), #20d997);
+      border: none;
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 1.5rem;
+      margin-top: 1rem;
       position: relative;
       overflow: hidden;
-      padding: 1rem;
+      padding: 0.75rem;
       font-size: 1.1rem;
       letter-spacing: 1px;
       box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
@@ -481,28 +380,25 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-      transform: translateY(-100%);
-      transition: transform 0.4s ease;
+      background: linear-gradient(45deg, #20d997, var(--success));
+      opacity: 0;
+      z-index: -1;
+      transition: opacity 0.4s ease;
     }
 
     .btn-submit:hover {
-      transform: translateY(-3px);
+      transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+      color: white;
     }
     
     .btn-submit:hover::before {
-      transform: translateY(0);
+      opacity: 1;
     }
     
     .btn-submit:active {
       transform: translateY(1px);
       box-shadow: 0 2px 10px rgba(16, 185, 129, 0.4);
-    }
-    
-    .btn-submit i {
-      margin-right: 10px;
-      font-size: 1.2rem;
     }
     
     .btn-submit::after {
@@ -534,191 +430,27 @@
       }
     }
 
-    .custom-select-wrapper {
-      position: relative;
-    }
-
-    .select-icon {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-      color: var(--primary);
-      transition: var(--transition);
-    }
-
-    .form-select:focus + .select-icon {
-      color: var(--primary-dark);
-    }
-
     .footer {
       text-align: center;
-      padding: 1.5rem;
+      padding: 1rem;
       color: var(--text-light);
       font-size: 0.9rem;
-      position: relative;
     }
 
-    .footer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-    }
-
-    .footer p {
-      margin: 0.5rem 0;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      font-weight: 600;
-      color: var(--primary);
-    }
-
-    .brand i {
-      margin-right: 0.5rem;
-      font-size: 1.2rem;
-    }
-
-    .text-danger {
-      color: var(--danger);
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-
-
-
-    /* アニメーション */
-    /* 紙飛行機アニメーション用スタイル */
-    @keyframes flyAway {
-      0% {
-        transform: scale(1) translateX(0);
-        opacity: 1;
-      }
-      20% {
-        transform: scale(0.8) translateX(0) translateY(-5px);
-      }
-      100% {
-        transform: scale(0.2) translateX(500px) translateY(-100px);
-        opacity: 0;
-      }
-    }
-    
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .paper-plane {
-      display: inline-block;
-      margin-right: 10px;
-      transform-origin: center;
-      transition: transform 0.3s;
-    }
-    
-    .fly-away {
-      animation: flyAway 1.5s ease-out forwards;
-    }
-    
-    .btn-submit-container {
-      position: relative;
-      width: 100%;
-      margin-top: 1.5rem;
-      overflow: hidden;
-      border-radius: var(--radius);
-    }
-    
-    .btn-success-message {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(145deg, var(--success), var(--accent));
-      color: white;
-      font-size: 1.1rem;
-      font-weight: 600;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.4s ease;
-      padding: 1rem;
-    }
-    
-    .btn-success-message.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .card {
-      animation: fadeIn 0.6s ease-out forwards;
-    }
-
-    .step:nth-child(1) {
-      animation: fadeIn 0.7s ease-out forwards;
-    }
-
-    .step:nth-child(2) {
-      animation: fadeIn 0.8s ease-out forwards;
-    }
-
-    .step:nth-child(3) {
-      animation: fadeIn 0.9s ease-out forwards;
-    }
-
-    .step:nth-child(4) {
-      animation: fadeIn 1s ease-out forwards;
-    }
-
-    .step:nth-child(5) {
-      animation: fadeIn 1.1s ease-out forwards;
-    }
-
-    /* レスポンシブ調整 */
+    /* Responsive adjustments */
     @media (max-width: 768px) {
       .header {
-        padding: 2rem 1.5rem;
-      }
-
-      .header h1 {
-        font-size: 1.8rem;
+        padding: 1.5rem;
       }
 
       .step {
         padding: 1.5rem;
       }
-
-      .step-title {
-        font-size: 1.2rem;
-      }
-
-      .calendar-container {
-        margin-top: 1rem;
-      }
     }
 
     @media (max-width: 576px) {
-      body {
-        padding: 1rem 0.5rem;
-      }
-
       .container {
-        margin: 0.5rem auto;
+        margin: 1rem auto;
       }
 
       .header h1 {
@@ -726,26 +458,12 @@
       }
 
       .step {
-        padding: 1.2rem 1rem;
-      }
-
-      .step-number {
-        width: 30px;
-        height: 30px;
-        font-size: 0.9rem;
-      }
-
-      .step-description {
-        padding-left: 2.5rem;
+        padding: 1rem;
       }
 
       .date {
-        height: 40px;
+        height: 35px;
         font-size: 0.9rem;
-      }
-
-      .btn-submit {
-        font-size: 1rem;
       }
     }
   </style>
@@ -754,7 +472,7 @@
   <div class="container">
     <div class="card">
       <div class="header">
-        <h1><i class="fas fa-calendar-alt" style="margin-right: 12px;"></i>内科日当直希望登録</h1>
+        <h1>内科日当直希望登録</h1>
         <p>毎月8日が締め切りです</p>
       </div>
 
@@ -764,7 +482,7 @@
           <div class="step-title">お名前</div>
         </div>
         <div class="form-group">
-          <div class="custom-select-wrapper">
+          <div class="custom-select-wrapper" style="position: relative;">
             <select id="name-select" class="form-select">
               <option value="">回答者を選択してください（敬称略）</option>
               <optgroup label="消化器内科">
@@ -805,12 +523,12 @@
                 <option value="その他">その他</option>
               </optgroup>
             </select>
-            <div class="select-icon">
+            <div class="select-icon" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--primary);">
               <i class="fas fa-user-md"></i>
             </div>
           </div>
           <input id="other-name-input" type="text" placeholder="名前を入力" class="form-input" style="display:none; margin-top: 1rem; border-left: 3px solid var(--primary);">
-          <p id="name-error" class="text-danger" style="display: none;">名前を入力してください。</p>
+          <p id="name-error" class="text-danger" style="display: none; color: var(--danger); margin-top: 0.5rem;">名前を入力してください。</p>
         </div>
       </div>
 
@@ -819,7 +537,7 @@
           <div class="step-number">2</div>
           <div class="step-title">希望する日</div>
         </div>
-        <p class="step-description">木曜日は循環器医師のみです。</p>
+        <p class="step-description">木曜日は循環器医師のみ。</p>
         <div class="calendar-container preferred">
           <div class="calendar-header">
             <div class="calendar-nav">
@@ -841,7 +559,7 @@
           <div class="step-number">3</div>
           <div class="step-title">希望しない日</div>
         </div>
-        <p class="step-description">翌日外勤・外来のためできない場合も含みます</p>
+        <p class="step-description">（翌日外勤・外来でできない場合も含む）</p>
         <div class="calendar-container not-preferred">
           <div class="calendar-header">
             <div class="calendar-nav">
@@ -863,9 +581,9 @@
           <div class="step-number">4</div>
           <div class="step-title">コメント</div>
         </div>
-        <p class="step-description">特別な希望やメッセージがあれば入力してください。</p>
+        <p class="step-description">コメントがあればお願いします。</p>
         <div class="form-group">
-          <textarea id="comment-input" class="form-textarea" placeholder="コメントを入力してください"></textarea>
+          <textarea id="comment-input" class="form-textarea" placeholder="コメント"></textarea>
         </div>
       </div>
 
@@ -874,24 +592,18 @@
           <div class="step-number">5</div>
           <div class="step-title">メールアドレス（任意）</div>
         </div>
-        <p class="step-description">回答結果を後で確認できます。</p>
+        <p class="step-description">自分の回答結果を後で確認できます。</p>
         <div class="form-group">
           <input type="email" id="email-input" class="form-input" placeholder="your.email@example.com">
         </div>
-        <div class="btn-submit-container">
-          <button id="generate-url" class="btn btn-submit">
-            <span class="paper-plane"><i class="fas fa-paper-plane"></i></span>送信する
-          </button>
-          <div class="btn-success-message" id="success-message">
-            <i class="fas fa-check-circle" style="margin-right: 10px;"></i>送信完了！ありがとうございます
-          </div>
-        </div>
+        <button id="generate-url" class="btn btn-submit">
+          <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>送信する
+        </button>
       </div>
     </div>
 
     <div class="footer">
-      <div class="brand"><i class="fas fa-hospital-user"></i>内科当直システム</div>
-
+      <p>内科日当直希望 </p>
     </div>
   </div>
 
@@ -959,7 +671,7 @@
 
           // Add empty cells before the first day of the month
           for (let i = 0; i < firstDay; i++) {
-            grid.innerHTML += '<div style="border: 1px solid var(--border); background-color: rgba(0,0,0,0.03); border-radius: var(--radius-sm); margin: 2px;"></div>';
+            grid.innerHTML += '<div style="border: 1px solid var(--border); background-color: rgba(0,0,0,0.03);"></div>';
           }
 
           // 2024-2025年の日本の祝日リスト
@@ -1048,8 +760,6 @@
             const dateString = `${date.getFullYear()}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
             return isUnavailableWednesday(date) || specificUnavailableDates.includes(dateString);
           };
-
-          // 締め切り日の表示は削除
           
           // Add day cells to the calendar
           for (let i = 1; i <= daysInMonth; i++) {
@@ -1088,18 +798,6 @@
           grid.querySelectorAll('.date:not(.date-unavailable), .duty:not(.date-unavailable), .day').forEach(date => {
             date.addEventListener('click', function() {
               this.classList.toggle('bg-yellow-300');
-              // クリック効果をさらに追加
-              if (this.classList.contains('bg-yellow-300')) {
-                // 選択時のポップエフェクト
-                this.animate([
-                  { transform: 'scale(0.95)', opacity: 0.7 },
-                  { transform: 'scale(1.05)', opacity: 1 },
-                  { transform: 'scale(1)', opacity: 1 }
-                ], {
-                  duration: 300,
-                  easing: 'ease-out'
-                });
-              }
               console.log('Date clicked:', this.textContent);
             });
           });
@@ -1126,12 +824,9 @@
 
       // Handle form submission
       const generateUrlButton = document.getElementById('generate-url');
-      const successMessage = document.getElementById('success-message');
-      const paperPlane = document.querySelector('.paper-plane');
-      
       generateUrlButton.addEventListener('click', function(event) {
         event.preventDefault();
-        
+
         // Get name
         const nameSelect = document.getElementById('name-select');
         let name = nameSelect.value;
@@ -1139,39 +834,19 @@
           const otherNameInput = document.getElementById('other-name-input');
           name = otherNameInput.value;
           if (!name.trim()) {
-            document.getElementById('name-error').style.display = 'block';
-            nameSelect.focus();
+            alert('名前を入力してください。');
             return;
           }
         } else if (!name) {
-          document.getElementById('name-error').style.display = 'block';
-          nameSelect.focus();
+          alert('名前を選択してください。');
           return;
-        } else {
-          document.getElementById('name-error').style.display = 'none';
         }
 
         // Get form data
         const comment = document.querySelector('#comment-input').value;
-        const preferredDates = Array.from(document.querySelectorAll('.preferred .date.bg-yellow-300, .preferred .duty.bg-yellow-300, .preferred .day.bg-yellow-300')).map(el => {
-          let text = el.textContent.trim();
-          return text;
-        });
-        const notPreferredDates = Array.from(document.querySelectorAll('.not-preferred .date.bg-yellow-300, .not-preferred .duty.bg-yellow-300, .not-preferred .day.bg-yellow-300')).map(el => {
-          let text = el.textContent.trim();
-          return text;
-        });
+        const preferredDates = Array.from(document.querySelectorAll('.preferred .date.bg-yellow-300, .preferred .duty.bg-yellow-300, .preferred .day.bg-yellow-300')).map(el => el.textContent.trim());
+        const notPreferredDates = Array.from(document.querySelectorAll('.not-preferred .date.bg-yellow-300, .not-preferred .duty.bg-yellow-300, .not-preferred .day.bg-yellow-300')).map(el => el.textContent.trim());
         const email = document.getElementById('email-input').value;
-
-        // 紙飛行機アニメーション開始
-        paperPlane.classList.add('fly-away');
-        generateUrlButton.style.pointerEvents = 'none';
-        
-        // 送信エフェクト後に成功メッセージを表示
-        setTimeout(() => {
-          generateUrlButton.style.opacity = '0';
-          successMessage.classList.add('show');
-        }, 800);
 
         // Prepare email content
         const summary = `回答者の名前: ${name}\n希望日: ${preferredDates.join(', ')}\n希望しない日: ${notPreferredDates.join(', ')}\nコメント: ${comment}`;
@@ -1184,27 +859,8 @@
           "not_preferred_dates": notPreferredDates.join(', '),
           "email": email
         }).then(function(response) {
-          setTimeout(() => {
-            alert(`送信できました，ありがとうございます！\n回答者の名前: ${name}\nコメント: ${comment}\n希望日: ${preferredDates.join(', ')}\n希望しない日: ${notPreferredDates.join(', ')}`);
-            
-            // 3秒後に元の状態に戻す
-            setTimeout(() => {
-              successMessage.classList.remove('show');
-              generateUrlButton.style.opacity = '1';
-              paperPlane.classList.remove('fly-away');
-              generateUrlButton.style.pointerEvents = 'auto';
-            }, 3000);
-          }, 1500);
+          alert(`送信できました，ありがとうございます！\n回答者の名前: ${name}\nコメント: ${comment}\n希望日: ${preferredDates.join(', ')}\n希望しない日: ${notPreferredDates.join(', ')}`);
         }, function(error) {
-          paperPlane.classList.remove('fly-away');
-          generateUrlButton.innerHTML = '<i class="fas fa-exclamation-triangle"></i> エラー';
-          generateUrlButton.style.opacity = '1';
-          generateUrlButton.style.pointerEvents = 'auto';
-          
-          setTimeout(() => {
-            generateUrlButton.innerHTML = '<span class="paper-plane"><i class="fas fa-paper-plane"></i></span>送信する';
-          }, 3000);
-          
           alert('送信失敗．もう一度試しても失敗する場合はrosai041321@gmail.comに連絡をください: ' + error);
         });
       });
