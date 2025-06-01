@@ -3,26 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>内科 日当直希望 </title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <title>内科 日当直希望 | 登録システム</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #3b82f6;
-      --primary-dark: #2563eb;
-      --secondary: #f59e0b;
-      --secondary-light: #fcd34d;
-      --text: #1f2937;
-      --text-light: #6b7280;
-      --background: #f3f4f6;
-      --white: #ffffff;
-      --danger: #ef4444;
-      --success: #10b981;
-      --card: #ffffff;
-      --border: #e5e7eb;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #dbeafe;
+      --accent: #059669;
+      --accent-hover: #047857;
+      --danger: #dc2626;
+      --warning: #f59e0b;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --text-muted: #94a3b8;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-tertiary: #f1f5f9;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       --radius: 0.5rem;
-      --transition: all 0.3s ease;
+      --radius-lg: 0.75rem;
     }
 
     * {
@@ -32,159 +36,151 @@
     }
 
     body {
-      font-family: 'Noto Sans JP', sans-serif;
-      background-color: var(--background);
-      color: var(--text);
+      font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
       line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      font-size: 15px;
     }
 
     .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
-    .card {
-      background-color: var(--card);
-      border-radius: var(--radius);
+    .main-card {
+      background-color: var(--bg-primary);
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
       overflow: hidden;
       margin-bottom: 2rem;
-      transition: var(--transition);
-    }
-
-    .card:hover {
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
 
     .header {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: var(--white);
-      padding: 1.5rem;
+      background-color: var(--text-primary);
+      color: white;
+      padding: 2.5rem 2rem;
       text-align: center;
-      position: relative;
     }
 
     .header h1 {
-      font-size: 1.8rem;
+      font-size: 1.875rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
+      letter-spacing: -0.025em;
     }
 
     .header p {
-      font-weight: 300;
+      font-size: 1rem;
       opacity: 0.9;
+      font-weight: 400;
     }
 
-    .step {
+    .section {
       padding: 2rem;
       border-bottom: 1px solid var(--border);
     }
 
-    .step:last-child {
+    .section:last-child {
       border-bottom: none;
     }
 
-    .step-header {
+    .section-header {
       display: flex;
       align-items: center;
-      margin-bottom: 1.5rem;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
     }
 
-    .step-number {
+    .section-number {
       background-color: var(--primary);
-      color: var(--white);
-      width: 30px;
-      height: 30px;
+      color: white;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
-      margin-right: 1rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      flex-shrink: 0;
     }
 
-    .step-title {
-      font-weight: 700;
-      font-size: 1.2rem;
+    .section-title {
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: var(--text-primary);
     }
 
-    .step-description {
+    .section-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
       margin-bottom: 1rem;
-      color: var(--text-light);
-      font-size: 0.9rem;
+      margin-left: 2.5rem;
     }
 
     .form-group {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
 
-    .form-label {
+    label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: 500;
+      color: var(--text-primary);
+      font-size: 0.875rem;
     }
 
-    .form-select, .form-input, .form-textarea {
+    select, input, textarea {
       width: 100%;
-      padding: 0.75rem 1rem;
+      padding: 0.625rem 0.875rem;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 1rem;
-      transition: var(--transition);
-      background-color: var(--white);
-    }
-    
-    .form-select {
-      appearance: none;
-      background-image: linear-gradient(45deg, transparent 50%, var(--primary) 50%), 
-                        linear-gradient(135deg, var(--primary) 50%, transparent 50%);
-      background-position: calc(100% - 20px) calc(1em + 2px), 
-                          calc(100% - 15px) calc(1em + 2px);
-      background-size: 5px 5px, 5px 5px;
-      background-repeat: no-repeat;
-      padding-right: 3rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      border-left: 3px solid var(--primary);
-    }
-    
-    .form-select:hover {
-      border-color: var(--primary-dark);
-      background-color: rgba(59, 130, 246, 0.05);
-    }
-    
-    optgroup {
-      font-weight: 700;
-      color: var(--primary-dark);
-      background-color: rgba(59, 130, 246, 0.1);
-    }
-    
-    option {
-      font-weight: normal;
-      color: var(--text);
-      background-color: white;
-      padding: 8px;
+      font-family: inherit;
+      font-size: 0.9375rem;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      transition: all 0.15s ease;
     }
 
-    .form-select:focus, .form-input:focus, .form-textarea:focus {
+    select:focus, input:focus, textarea:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-      transform: translateY(-1px);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
 
-    .form-textarea {
-      min-height: 80px;
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-position: right 0.875rem center;
+      background-repeat: no-repeat;
+      padding-right: 2.5rem;
+    }
+
+    optgroup {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    option {
+      font-weight: normal;
+      padding: 0.5rem;
+    }
+
+    textarea {
+      min-height: 100px;
       resize: vertical;
     }
 
-    .calendar-container {
+    .calendar-wrapper {
       margin-top: 1rem;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      background-color: var(--white);
+      background-color: var(--bg-primary);
     }
 
     .calendar-header {
@@ -192,15 +188,14 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem;
-      background-color: var(--primary);
-      color: var(--white);
+      background-color: var(--bg-tertiary);
+      border-bottom: 1px solid var(--border);
     }
 
-    .month-title {
-      font-weight: 700;
-      font-size: 1.1rem;
-      text-align: center;
-      flex-grow: 1;
+    .calendar-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
     }
 
     .calendar-nav {
@@ -208,414 +203,397 @@
       gap: 0.5rem;
     }
 
-    .calendar-nav button {
-      background-color: rgba(255, 255, 255, 0.2);
-      border: none;
-      color: var(--white);
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
+    .nav-btn {
+      background-color: var(--bg-primary);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: var(--transition);
+      transition: all 0.15s ease;
     }
 
-    .calendar-nav button:hover {
-      background-color: rgba(255, 255, 255, 0.3);
+    .nav-btn:hover {
+      background-color: var(--bg-tertiary);
+      color: var(--text-primary);
     }
 
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      background-color: var(--white);
-      gap: 1px;
     }
 
-    .calendar-day {
-      padding: 0.5rem 0.25rem;
+    .day-header {
+      padding: 0.75rem 0.25rem;
       text-align: center;
-      font-weight: 700;
-      background-color: rgba(59, 130, 246, 0.1);
+      font-weight: 600;
+      font-size: 0.8125rem;
+      background-color: var(--bg-tertiary);
+      color: var(--text-secondary);
       border-bottom: 1px solid var(--border);
     }
 
-    .calendar-day-sun {
+    .day-header.sunday {
       color: var(--danger);
     }
 
-    .calendar-day-sat {
+    .day-header.saturday {
       color: var(--primary);
     }
 
-    .date {
-      height: 40px;
+    .calendar-cell {
+      aspect-ratio: 1;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0.25rem;
+      min-height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
-      border: 1px solid var(--border);
-      position: relative;
-      background-color: var(--white);
     }
 
-    .date-cell {
-      display: flex;
-      flex-direction: column;
-      height: auto;
-      min-height: 60px;
-      border: 1px solid var(--border);
-      background-color: var(--white);
-      padding: 2px;
+    .calendar-cell:nth-child(7n) {
+      border-right: none;
     }
 
-    .duty, .day {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 5px 2px;
-      margin: 1px 0;
-      font-size: 14px;
-      flex-grow: 1;
-      width: 100%;
-      cursor: pointer;
-      transition: var(--transition);
-      border-radius: 4px;
-    }
-    
-    .duty:hover, .day:hover {
-      background-color: rgba(59, 130, 246, 0.1);
-    }
-
-    .date:hover {
-      background-color: rgba(59, 130, 246, 0.1);
-    }
-
-    .bg-yellow-300 {
-      background-color: var(--secondary-light) !important;
-      font-weight: 700;
-    }
-
-    .preferred .bg-yellow-300 {
-      background-color: rgba(16, 185, 129, 0.3) !important;
-    }
-
-    .not-preferred .bg-yellow-300 {
-      background-color: rgba(239, 68, 68, 0.3) !important;
-    }
-    
-    .date-unavailable {
-      background-color: #f5f5f5 !important;
-      color: #aaa !important;
-      cursor: not-allowed !important;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .date-unavailable::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
+    .date-btn {
       width: 100%;
       height: 100%;
-      background: repeating-linear-gradient(
-        135deg,
-        rgba(255, 0, 0, 0.1),
-        rgba(255, 0, 0, 0.1) 5px,
-        rgba(255, 255, 255, 0.2) 5px,
-        rgba(255, 255, 255, 0.2) 10px
-      );
-      pointer-events: none;
-    }
-    
-    .date-unavailable:hover {
-      background-color: #f5f5f5 !important;
-    }
-
-    .btn {
-      display: inline-block;
-      background-color: var(--primary);
-      color: var(--white);
-      font-weight: 700;
-      padding: 0.75rem 1.5rem;
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
       border-radius: var(--radius);
-      border: 2px solid var(--primary);
+      background-color: transparent;
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 0.875rem;
       cursor: pointer;
-      transition: var(--transition);
-      text-align: center;
-      font-size: 1rem;
-      text-decoration: none;
-    }
-
-    .btn:hover {
-      background-color: var(--primary-dark);
-      border-color: var(--primary-dark);
-    }
-
-    .btn-submit {
-      background: linear-gradient(45deg, var(--success), #20d997);
-      border: none;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 1rem;
+      transition: all 0.15s ease;
       position: relative;
-      overflow: hidden;
-      padding: 0.75rem;
-      font-size: 1.1rem;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-      transition: all 0.4s ease;
-      z-index: 1;
-    }
-    
-    .btn-submit::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, #20d997, var(--success));
-      opacity: 0;
-      z-index: -1;
-      transition: opacity 0.4s ease;
     }
 
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+    .date-btn:hover:not(.disabled) {
+      background-color: var(--bg-tertiary);
+    }
+
+    .date-btn.selected {
+      background-color: var(--primary);
       color: white;
+      font-weight: 600;
     }
-    
-    .btn-submit:hover::before {
-      opacity: 1;
+
+    .date-btn.selected.not-preferred {
+      background-color: var(--danger);
     }
-    
-    .btn-submit:active {
-      transform: translateY(1px);
-      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.4);
+
+    .date-btn.disabled {
+      color: var(--text-muted);
+      cursor: not-allowed;
+      opacity: 0.5;
     }
-    
-    .btn-submit::after {
+
+    .date-btn.disabled::after {
       content: '';
       position: absolute;
       top: 50%;
-      left: 50%;
-      width: 5px;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.5);
-      opacity: 0;
-      border-radius: 100%;
-      transform: scale(1) translate(-50%, -50%);
-      transform-origin: 50% 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: var(--text-muted);
+      transform: rotate(-45deg);
     }
-    
-    .btn-submit:focus::after {
-      animation: ripple 1s ease-out;
+
+    .weekend-cell {
+      min-height: 64px;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 0.375rem 0.25rem;
     }
-    
-    @keyframes ripple {
-      0% {
-        transform: scale(0) translate(-50%, -50%);
-        opacity: 0.5;
-      }
-      100% {
-        transform: scale(40) translate(-50%, -50%);
-        opacity: 0;
-      }
+
+    .duty-btn {
+      width: 100%;
+      padding: 0.25rem;
+      font-size: 0.75rem;
+      min-height: 26px;
+      border-radius: 0.25rem;
+      border: 1px solid var(--border);
+      background-color: var(--bg-primary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-weight: 500;
+    }
+
+    .duty-btn:hover:not(.disabled) {
+      background-color: var(--bg-tertiary);
+      border-color: var(--primary);
+    }
+
+    .duty-btn.selected {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .duty-btn.selected.not-preferred {
+      background-color: var(--danger);
+      border-color: var(--danger);
+    }
+
+    .duty-btn.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .empty-cell {
+      background-color: var(--bg-tertiary);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background-color: var(--accent);
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-size: 0.9375rem;
+      width: 100%;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .success-message {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      background-color: var(--accent);
+      color: white;
+      font-weight: 600;
+      border-radius: var(--radius);
+      font-size: 0.9375rem;
+    }
+
+    .success-message.show {
+      display: flex;
+    }
+
+    .error-message {
+      color: var(--danger);
+      font-size: 0.8125rem;
+      margin-top: 0.25rem;
+      display: none;
     }
 
     .footer {
       text-align: center;
-      padding: 1rem;
-      color: var(--text-light);
-      font-size: 0.9rem;
+      padding: 2rem 1rem;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
+    .holiday {
+      background-color: #fee2e2;
+    }
+
+    .holiday .date-btn:not(.selected) {
+      color: var(--danger);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 1rem 0.5rem;
+      }
+
       .header {
-        padding: 1.5rem;
-      }
-
-      .step {
-        padding: 1.5rem;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .container {
-        margin: 1rem auto;
+        padding: 2rem 1.5rem;
       }
 
       .header h1 {
         font-size: 1.5rem;
       }
 
-      .step {
-        padding: 1rem;
+      .section {
+        padding: 1.5rem;
       }
 
-      .date {
-        height: 35px;
-        font-size: 0.9rem;
+      .calendar-cell {
+        min-height: 42px;
+      }
+
+      .date-btn {
+        min-height: 32px;
+        font-size: 0.8125rem;
+      }
+
+      .duty-btn {
+        font-size: 0.6875rem;
+        min-height: 24px;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="card">
+    <div class="main-card">
       <div class="header">
         <h1>内科日当直希望登録</h1>
         <p>毎月8日が締め切りです</p>
       </div>
 
-      <div class="step">
-        <div class="step-header">
-          <div class="step-number">1</div>
-          <div class="step-title">お名前</div>
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">1</div>
+          <div class="section-title">お名前</div>
         </div>
         <div class="form-group">
-          <div class="custom-select-wrapper" style="position: relative;">
-            <select id="name-select" class="form-select">
-              <option value="">回答者を選択してください（敬称略）</option>
-              <optgroup label="消化器内科">
-                <option value="西中川">西中川</option>
-                <option value="大場">大場</option>
-                <option value="A">A</option>
-                <option value="折原">折原</option>
-                <option value="石井">石井</option>
-                <option value="B">B</option>
-              </optgroup>
-              <optgroup label="呼吸器内科">
-                <option value="河野">河野</option>
-                <option value="松村">松村</option>
-                <option value="鈴木">鈴木</option>
-                <option value="伊藤">伊藤</option>
-                <option value="堀">堀</option>
-                <option value="春日">C</option>
-                <option value="三宅">D</option>
-              </optgroup>
-              <optgroup label="腎臓内科">
-                <option value="杉田">杉田</option>
-                <option value="岡田">岡田</option>
-                <option value="畠中">畠中</option>
-              </optgroup>
-              <optgroup label="循環器内科">
-                <option value="吉玉">吉玉</option>
-                <option value="浅原">浅原</option>
-                <option value="高亀">高亀</option>
-                <option value="C">C</option>
-                <option value="有上">有上</option>
-                <option value="久次米">久次米</option>
-              </optgroup>
-              <optgroup label="糖尿病代謝内分泌科">
-                <option value="D">D</option>
-                <option value="E">E</option>
-              </optgroup>
-              <optgroup label="その他">
-                <option value="その他">その他</option>
-              </optgroup>
-            </select>
-            <div class="select-icon" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--primary);">
-              <i class="fas fa-user-md"></i>
-            </div>
-          </div>
-          <input id="other-name-input" type="text" placeholder="名前を入力" class="form-input" style="display:none; margin-top: 1rem; border-left: 3px solid var(--primary);">
-          <p id="name-error" class="text-danger" style="display: none; color: var(--danger); margin-top: 0.5rem;">名前を入力してください。</p>
+          <select id="name-select">
+            <option value="">回答者を選択してください</option>
+            <optgroup label="消化器内科">
+              <option value="西中川">西中川先生</option>
+              <option value="大場">大場先生</option>
+              <option value="土方">土方先生</option>
+              <option value="折原">折原先生</option>
+              <option value="石井">石井先生</option>
+              <option value="松坂">松坂先生</option>
+            </optgroup>
+            <optgroup label="呼吸器内科">
+              <option value="河野">河野先生</option>
+              <option value="松村">松村先生</option>
+              <option value="鈴木">鈴木先生</option>
+              <option value="伊藤">伊藤先生</option>
+              <option value="堀">堀先生</option>
+              <option value="春日">春日先生</option>
+              <option value="三宅">三宅先生</option>
+            </optgroup>
+            <optgroup label="腎臓内科">
+              <option value="杉田">杉田先生</option>
+              <option value="岡田">岡田先生</option>
+              <option value="畠中">畠中先生</option>
+            </optgroup>
+            <optgroup label="循環器内科">
+              <option value="吉玉">吉玉先生</option>
+              <option value="浅原">浅原先生</option>
+              <option value="高亀">高亀先生</option>
+              <option value="和田">和田先生</option>
+              <option value="有上">有上先生</option>
+              <option value="久次米">久次米先生</option>
+            </optgroup>
+            <optgroup label="糖尿病代謝内分泌科">
+              <option value="林">林先生</option>
+              <option value="曹">曹先生</option>
+            </optgroup>
+            <optgroup label="その他">
+              <option value="その他">その他</option>
+            </optgroup>
+          </select>
+          <input id="other-name-input" type="text" placeholder="お名前を入力してください" style="display:none; margin-top: 0.75rem;">
+          <p id="name-error" class="error-message">お名前を選択または入力してください。</p>
         </div>
       </div>
 
-      <div class="step">
-        <div class="step-header">
-          <div class="step-number">2</div>
-          <div class="step-title">希望する日</div>
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <div class="section-title">希望する日</div>
         </div>
-        <p class="step-description">木曜日は循環器医師のみ。</p>
-        <div class="calendar-container preferred">
+        <p class="section-description">木曜日は循環器医師のみです。</p>
+        <div class="calendar-wrapper preferred">
           <div class="calendar-header">
-            <div class="calendar-nav">
-              <button class="prev-month"><i class="fas fa-chevron-left"></i></button>
-            </div>
-            <div class="month-title">2023年 12月</div>
-            <div class="calendar-nav">
-              <button class="next-month"><i class="fas fa-chevron-right"></i></button>
-            </div>
+            <button class="nav-btn prev-month"><i class="fas fa-chevron-left"></i></button>
+            <div class="calendar-title">2023年 12月</div>
+            <button class="nav-btn next-month"><i class="fas fa-chevron-right"></i></button>
           </div>
-          <div class="calendar-grid">
-            <!-- Calendar days will be generated by JavaScript -->
-          </div>
+          <div class="calendar-grid"></div>
         </div>
       </div>
 
-      <div class="step">
-        <div class="step-header">
-          <div class="step-number">3</div>
-          <div class="step-title">希望しない日</div>
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">3</div>
+          <div class="section-title">希望しない日</div>
         </div>
-        <p class="step-description">（翌日外勤・外来でできない場合も含む）</p>
-        <div class="calendar-container not-preferred">
+        <p class="section-description">翌日外勤・外来のためできない場合も含みます</p>
+        <div class="calendar-wrapper not-preferred">
           <div class="calendar-header">
-            <div class="calendar-nav">
-              <button class="prev-month"><i class="fas fa-chevron-left"></i></button>
-            </div>
-            <div class="month-title">2023年 12月</div>
-            <div class="calendar-nav">
-              <button class="next-month"><i class="fas fa-chevron-right"></i></button>
-            </div>
+            <button class="nav-btn prev-month"><i class="fas fa-chevron-left"></i></button>
+            <div class="calendar-title">2023年 12月</div>
+            <button class="nav-btn next-month"><i class="fas fa-chevron-right"></i></button>
           </div>
-          <div class="calendar-grid">
-            <!-- Calendar days will be generated by JavaScript -->
-          </div>
+          <div class="calendar-grid"></div>
         </div>
       </div>
 
-      <div class="step">
-        <div class="step-header">
-          <div class="step-number">4</div>
-          <div class="step-title">コメント</div>
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">4</div>
+          <div class="section-title">コメント</div>
         </div>
-        <p class="step-description">コメントがあればお願いします。</p>
+        <p class="section-description">特別な希望やメッセージがあれば入力してください。</p>
         <div class="form-group">
-          <textarea id="comment-input" class="form-textarea" placeholder="コメント"></textarea>
+          <textarea id="comment-input" placeholder="コメントを入力してください"></textarea>
         </div>
       </div>
 
-      <div class="step">
-        <div class="step-header">
-          <div class="step-number">5</div>
-          <div class="step-title">メールアドレス（任意）</div>
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">5</div>
+          <div class="section-title">メールアドレス</div>
         </div>
-        <p class="step-description">自分の回答結果を後で確認できます。</p>
+        <p class="section-description">回答結果を後で確認できます。</p>
         <div class="form-group">
-          <input type="email" id="email-input" class="form-input" placeholder="your.email@example.com">
+          <input type="email" id="email-input" placeholder="your.email@example.com">
         </div>
-        <button id="generate-url" class="btn btn-submit">
-          <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>送信する
+        <button id="submit-btn" class="btn-primary">
+          <i class="fas fa-paper-plane"></i>
+          送信する
         </button>
+        <div id="success-message" class="success-message">
+          <i class="fas fa-check-circle"></i>
+          送信完了しました
+        </div>
       </div>
     </div>
 
     <div class="footer">
-      <p>内科日当直希望 </p>
+      <p>内科当直システム</p>
     </div>
   </div>
 
   <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // EmailJS initialization
+      // EmailJS初期化
       (function(){
         emailjs.init("XhqJVhB68ooIcAMCD");
       })();
 
-      // Handle "other" name select
+      // その他の名前入力処理
       const nameSelect = document.getElementById('name-select');
       const otherNameInput = document.getElementById('other-name-input');
 
@@ -627,187 +605,130 @@
         }
       });
 
-      // Calendar functionality
-      // Calculate which month to display based on current date
+      // カレンダー機能
       let now = new Date();
       let currentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-      // If current day is 10 or less, show next month (n+1)
-      // If current day is 11 or more, show the month after next (n+2)
       if (now.getDate() <= 10) {
         currentMonth.setMonth(currentMonth.getMonth() + 1);
       } else {
         currentMonth.setMonth(currentMonth.getMonth() + 2);
       }
 
-      const monthTitles = document.querySelectorAll('.month-title');
+      const monthTitles = document.querySelectorAll('.calendar-title');
       const calendarGrids = document.querySelectorAll('.calendar-grid');
 
+      // 祝日リスト
+      const holidays = [
+        "2024-01-01", "2024-01-08", "2024-02-11", "2024-03-20", "2024-04-29",
+        "2024-05-03", "2024-05-04", "2024-05-05", "2024-05-06", "2024-07-15",
+        "2024-08-11", "2024-08-12", "2024-09-16", "2024-09-22", "2024-09-23",
+        "2024-10-14", "2024-11-03", "2024-11-04", "2024-11-23", "2024-12-30",
+        "2024-12-31", "2025-01-01", "2025-01-02", "2025-01-03", "2025-01-13",
+        "2025-02-11", "2025-02-24", "2025-03-20", "2025-04-29", "2025-05-03",
+        "2025-05-04", "2025-05-05", "2025-05-06", "2025-07-21", "2025-08-11",
+        "2025-09-15", "2025-09-23", "2025-10-13", "2025-11-03", "2025-11-23",
+        "2025-11-24", "2026-01-12", "2026-02-11", "2026-03-20"
+      ];
+
+      // 利用不可日
+      const specificUnavailableDates = [
+        "2024-04-05", "2024-05-31", "2024-06-07", "2024-07-05", 
+        "2024-08-30", "2024-09-06", "2024-10-04", "2024-11-29", "2024-12-14",
+        "2025-04-05", "2025-05-31", "2025-06-07", "2025-07-05", 
+        "2025-08-30", "2025-09-06", "2025-10-04", "2025-11-29", "2025-12-14"
+      ];
+
+      const isUnavailableWednesday = (date) => {
+        if (date.getDay() !== 3) return false;
+        const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+        const dayOfWeekOfFirstDay = firstDayOfMonth.getDay();
+        const firstWednesdayDate = 1 + (3 - dayOfWeekOfFirstDay + 7) % 7;
+        const weekNumber = Math.ceil((date.getDate() - firstWednesdayDate) / 7) + 1;
+        return weekNumber === 1 || weekNumber === 3 || weekNumber === 5;
+      };
+
+      const isHoliday = (date) => {
+        const dateString = date.toISOString().split('T')[0];
+        return holidays.includes(dateString);
+      };
+
+      const isUnavailableDate = (date) => {
+        const dateString = date.toISOString().split('T')[0];
+        return isUnavailableWednesday(date) || specificUnavailableDates.includes(dateString);
+      };
+
       function updateCalendar(month) {
-        // Update month titles
         monthTitles.forEach(title => {
           title.textContent = `${month.getFullYear()}年 ${month.getMonth() + 1}月`;
         });
 
-        // Update calendar grids
         calendarGrids.forEach((grid, gridIndex) => {
-          const isPreferredCalendar = grid.closest('.calendar-container').classList.contains('preferred');
-          
-          grid.innerHTML = ''; // Clear the calendar grid
+          const isPreferredCalendar = grid.closest('.calendar-wrapper').classList.contains('preferred');
+          grid.innerHTML = '';
 
-          // Get the first day of the month
-          const firstDay = new Date(month.getFullYear(), month.getMonth(), 1).getDay();
-          // Get the number of days in the month
-          const daysInMonth = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
-
-          // Add day labels
+          // 曜日ヘッダー
           const daysOfWeek = ['日', '月', '火', '水', '木', '金', '土'];
           daysOfWeek.forEach((day, index) => {
-            let dayClass = 'calendar-day';
-            if (index === 0) dayClass += ' calendar-day-sun';
-            if (index === 6) dayClass += ' calendar-day-sat';
-            grid.innerHTML += `<div class="${dayClass}">${day}</div>`;
+            let className = 'day-header';
+            if (index === 0) className += ' sunday';
+            if (index === 6) className += ' saturday';
+            grid.innerHTML += `<div class="${className}">${day}</div>`;
           });
 
-          // Add empty cells before the first day of the month
+          const firstDay = new Date(month.getFullYear(), month.getMonth(), 1).getDay();
+          const daysInMonth = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+
+          // 空のセル
           for (let i = 0; i < firstDay; i++) {
-            grid.innerHTML += '<div style="border: 1px solid var(--border); background-color: rgba(0,0,0,0.03);"></div>';
+            grid.innerHTML += '<div class="calendar-cell empty-cell"></div>';
           }
 
-          // 2024-2025年の日本の祝日リスト
-          const holidays = [
-            "2024-01-01", // 元日
-            "2024-01-08", // 成人の日
-            "2024-02-11", // 建国記念の日
-            "2024-03-20", // 春分の日
-            "2024-04-29", // 昭和の日
-            "2024-05-03", // 憲法記念日
-            "2024-05-04", // みどりの日
-            "2024-05-05", // こどもの日
-            "2024-05-06", // 振替休日
-            "2024-07-15", // 海の日
-            "2024-08-11", // 山の日
-            "2024-08-12", // 振替休日
-            "2024-09-16", // 敬老の日
-            "2024-09-22", // 秋分の日
-            "2024-09-23", // 振替休日
-            "2024-10-14", // 体育の日
-            "2024-11-03", // 文化の日
-            "2024-11-04", // 振替休日
-            "2024-11-23", // 勤労感謝の日
-            "2024-12-30", // 年末
-            "2024-12-31", // 年末
-            "2025-01-01", // 元日
-            "2025-01-02", // 年始
-            "2025-01-03", // 年始
-            "2025-01-13", // 成人の日
-            "2025-02-11", // 建国記念の日
-            "2025-02-24", // 振替休日
-            "2025-03-20", // 春分の日
-            "2025-04-29", // 昭和の日
-            "2025-05-03", // 憲法記念日
-            "2025-05-04", // みどりの日
-            "2025-05-05", // こどもの日
-            "2025-05-06", // 振替休日
-            "2025-07-21", // 海の日
-            "2025-08-11", // 山の日
-            "2025-09-15", // 敬老の日
-            "2025-09-23", // 秋分の日
-            "2025-10-13", // 体育の日
-            "2025-11-03", // 文化の日
-            "2025-11-23", // 勤労感謝の日
-            "2025-11-24", // 振替休日
-            "2026-1-12", // 成人の日
-            "2026-2-11", // 建国記念の日
-            "2026-3-20", // 春分の日
-          ];
-
-          // 特定の禁止された日付リスト
-          const specificUnavailableDates = [
-            "2024-04-05", "2024-05-31", "2024-06-07", "2024-07-05", 
-            "2024-08-30", "2024-09-06", "2024-10-04", "2024-11-29", "2024-12-14",
-            "2025-04-05", "2025-05-31", "2025-06-07", "2025-07-05", 
-            "2025-08-30", "2025-09-06", "2025-10-04", "2025-11-29", "2025-12-14"
-          ];
-
-          // 第1、3、5水曜日かどうかをチェックする関数
-          const isUnavailableWednesday = (date) => {
-            // 水曜日(3)かチェック
-            if (date.getDay() !== 3) return false;
-            
-            // 月の何週目かを計算
-            const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-            const dayOfWeekOfFirstDay = firstDayOfMonth.getDay();
-            const firstWednesdayDate = 1 + (3 - dayOfWeekOfFirstDay + 7) % 7;
-            const weekNumber = Math.ceil((date.getDate() - firstWednesdayDate) / 7) + 1;
-            
-            // 第1、3、5水曜日ならtrue
-            return weekNumber === 1 || weekNumber === 3 || weekNumber === 5;
-          };
-
-          // Check if date is a holiday
-          const isHoliday = (date) => {
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            const dateString = `${date.getFullYear()}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-            return holidays.includes(dateString);
-          };
-          
-          // 日付が利用不可かどうかをチェック
-          const isUnavailableDate = (date) => {
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            const dateString = `${date.getFullYear()}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-            return isUnavailableWednesday(date) || specificUnavailableDates.includes(dateString);
-          };
-          
-          // Add day cells to the calendar
+          // 日付セル
           for (let i = 1; i <= daysInMonth; i++) {
             let date = new Date(month.getFullYear(), month.getMonth(), i);
             let dayOfWeek = date.getDay();
             let isSpecialDate = isHoliday(date);
             let isUnavailable = isUnavailableDate(date);
+            let cellClass = 'calendar-cell';
             
-            // 特別な日付処理（週末や祝日）
+            if (isSpecialDate) {
+              cellClass += ' holiday';
+            }
+
             if (dayOfWeek === 0 || dayOfWeek === 6 || isSpecialDate) {
-              // 希望するカレンダーでかつ選択不可の日付の場合
-              if (isPreferredCalendar && isUnavailable) {
-                grid.innerHTML += `
-                  <div class="date-cell">
-                    <div class="duty date-unavailable">${i}日</div>
-                    <div class="day">${i}当</div>
-                  </div>`;
-              } else {
-                grid.innerHTML += `
-                  <div class="date-cell">
-                    <div class="duty">${i}日</div>
-                    <div class="day">${i}当</div>
-                  </div>`;
-              }
+              cellClass += ' weekend-cell';
+              let dutyDisabled = isPreferredCalendar && isUnavailable ? ' disabled' : '';
+              grid.innerHTML += `
+                <div class="${cellClass}">
+                  <button class="duty-btn${dutyDisabled}" data-date="${i}日">${i}日</button>
+                  <button class="duty-btn" data-date="${i}当">${i}当</button>
+                </div>`;
             } else {
-              // 平日の処理
-              if (isPreferredCalendar && isUnavailable) {
-                grid.innerHTML += `<div class="date date-unavailable">${i}</div>`;
-              } else {
-                grid.innerHTML += `<div class="date">${i}</div>`;
-              }
+              let disabled = isPreferredCalendar && isUnavailable ? ' disabled' : '';
+              grid.innerHTML += `
+                <div class="${cellClass}">
+                  <button class="date-btn${disabled}" data-date="${i}">${i}</button>
+                </div>`;
             }
           }
 
-          // 選択可能な要素にのみイベントリスナーを追加
-          grid.querySelectorAll('.date:not(.date-unavailable), .duty:not(.date-unavailable), .day').forEach(date => {
-            date.addEventListener('click', function() {
-              this.classList.toggle('bg-yellow-300');
-              console.log('Date clicked:', this.textContent);
+          // クリックイベント
+          const calendarType = isPreferredCalendar ? '' : ' not-preferred';
+          grid.querySelectorAll('.date-btn:not(.disabled), .duty-btn:not(.disabled)').forEach(btn => {
+            btn.addEventListener('click', function() {
+              this.classList.toggle('selected');
+              if (calendarType) {
+                this.classList.toggle('not-preferred');
+              }
             });
           });
         });
       }
 
-      // Initialize calendars
       updateCalendar(currentMonth);
 
-      // Handle month navigation
+      // 月のナビゲーション
       document.querySelectorAll('.prev-month').forEach(button => {
         button.addEventListener('click', function() {
           currentMonth.setMonth(currentMonth.getMonth() - 1);
@@ -822,36 +743,41 @@
         });
       });
 
-      // Handle form submission
-      const generateUrlButton = document.getElementById('generate-url');
-      generateUrlButton.addEventListener('click', function(event) {
-        event.preventDefault();
+      // フォーム送信
+      const submitBtn = document.getElementById('submit-btn');
+      const successMessage = document.getElementById('success-message');
+      const nameError = document.getElementById('name-error');
 
-        // Get name
-        const nameSelect = document.getElementById('name-select');
+      submitBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // 名前の検証
         let name = nameSelect.value;
         if (name === 'その他') {
-          const otherNameInput = document.getElementById('other-name-input');
-          name = otherNameInput.value;
-          if (!name.trim()) {
-            alert('名前を入力してください。');
+          name = otherNameInput.value.trim();
+          if (!name) {
+            nameError.style.display = 'block';
+            otherNameInput.focus();
             return;
           }
         } else if (!name) {
-          alert('名前を選択してください。');
+          nameError.style.display = 'block';
+          nameSelect.focus();
           return;
         }
+        nameError.style.display = 'none';
 
-        // Get form data
-        const comment = document.querySelector('#comment-input').value;
-        const preferredDates = Array.from(document.querySelectorAll('.preferred .date.bg-yellow-300, .preferred .duty.bg-yellow-300, .preferred .day.bg-yellow-300')).map(el => el.textContent.trim());
-        const notPreferredDates = Array.from(document.querySelectorAll('.not-preferred .date.bg-yellow-300, .not-preferred .duty.bg-yellow-300, .not-preferred .day.bg-yellow-300')).map(el => el.textContent.trim());
+        // データ収集
+        const comment = document.getElementById('comment-input').value;
+        const preferredDates = Array.from(document.querySelectorAll('.preferred .selected')).map(el => el.getAttribute('data-date'));
+        const notPreferredDates = Array.from(document.querySelectorAll('.not-preferred .selected')).map(el => el.getAttribute('data-date'));
         const email = document.getElementById('email-input').value;
 
-        // Prepare email content
-        const summary = `回答者の名前: ${name}\n希望日: ${preferredDates.join(', ')}\n希望しない日: ${notPreferredDates.join(', ')}\nコメント: ${comment}`;
-        
-        // Send email using EmailJS
+        // ボタンを無効化
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 送信中...';
+
+        // EmailJS送信
         emailjs.send("service_v7cenku", "template_rm69kao", {
           "name": name,
           "comment": comment,
@@ -859,9 +785,29 @@
           "not_preferred_dates": notPreferredDates.join(', '),
           "email": email
         }).then(function(response) {
-          alert(`送信できました，ありがとうございます！\n回答者の名前: ${name}\nコメント: ${comment}\n希望日: ${preferredDates.join(', ')}\n希望しない日: ${notPreferredDates.join(', ')}`);
+          submitBtn.style.display = 'none';
+          successMessage.classList.add('show');
+          
+          setTimeout(() => {
+            alert(`送信が完了しました。\n\n回答者：${name}\n希望日：${preferredDates.join(', ')}\n希望しない日：${notPreferredDates.join(', ')}`);
+            
+            // リセット
+            setTimeout(() => {
+              submitBtn.style.display = 'flex';
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 送信する';
+              successMessage.classList.remove('show');
+            }, 2000);
+          }, 500);
         }, function(error) {
-          alert('送信失敗．もう一度試しても失敗する場合はrosai041321@gmail.comに連絡をください: ' + error);
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> エラー';
+          
+          setTimeout(() => {
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 送信する';
+          }, 3000);
+          
+          alert('送信に失敗しました。もう一度お試しください。\nエラーが続く場合は、rosai041321@gmail.comまでご連絡ください。');
         });
       });
     });
