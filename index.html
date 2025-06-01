@@ -227,6 +227,7 @@
       grid-template-columns: repeat(7, 1fr);
     }
 
+    /* aspect-ratioを削除、最小サイズとpaddingで形を維持しつつはみ出し防止 */
     .day-header {
       padding: 0.75rem 0.25rem;
       text-align: center;
@@ -246,7 +247,6 @@
     }
 
     .calendar-cell {
-      aspect-ratio: 1;
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       padding: 0.25rem;
@@ -491,6 +491,7 @@
         <p>毎月8日が締め切りです</p>
       </div>
 
+      <!-- 1. お名前 -->
       <div class="section">
         <div class="section-header">
           <div class="section-number">1</div>
@@ -542,6 +543,7 @@
         </div>
       </div>
 
+      <!-- 2. 希望する日 -->
       <div class="section">
         <div class="section-header">
           <div class="section-number">2</div>
@@ -558,6 +560,7 @@
         </div>
       </div>
 
+      <!-- 3. 希望しない日 -->
       <div class="section">
         <div class="section-header">
           <div class="section-number">3</div>
@@ -574,9 +577,29 @@
         </div>
       </div>
 
+      <!-- 4. 日直 or 当直 -->
       <div class="section">
         <div class="section-header">
           <div class="section-number">4</div>
+          <div class="section-title">日直 or 当直</div>
+        </div>
+        <p class="section-description">日直のほうがよい、当直のほうがよい、どちらでもよい、の中から選択してください。</p>
+        <div class="form-group">
+          <label for="duty-type">希望</label>
+          <select id="duty-type" name="duty-type">
+            <option value="">選択してください</option>
+            <option value="日直のほうがよい">日直のほうがよい</option>
+            <option value="当直のほうがよい">当直のほうがよい</option>
+            <option value="どちらでもよい">どちらでもよい</option>
+          </select>
+          <p id="duty-type-error" class="error-message">必須項目です。選択してください。</p>
+        </div>
+      </div>
+
+      <!-- 5. コメント -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">5</div>
           <div class="section-title">コメント</div>
         </div>
         <p class="section-description">特別な希望やメッセージがあれば入力してください。</p>
@@ -585,9 +608,10 @@
         </div>
       </div>
 
+      <!-- 6. メールアドレス -->
       <div class="section">
         <div class="section-header">
-          <div class="section-number">5</div>
+          <div class="section-number">6</div>
           <div class="section-title">メールアドレス</div>
         </div>
         <p class="section-description">回答結果を後で確認できます。</p>
@@ -621,6 +645,7 @@
       // その他の名前入力処理
       const nameSelect = document.getElementById('name-select');
       const otherNameInput = document.getElementById('other-name-input');
+      const nameError = document.getElementById('name-error');
 
       nameSelect.addEventListener('change', function() {
         if (this.value === 'その他') {
@@ -629,6 +654,10 @@
           otherNameInput.style.display = 'none';
         }
       });
+
+      // 日直・当直選択 必須チェック
+      const dutyTypeSelect = document.getElementById('duty-type');
+      const dutyTypeError = document.getElementById('duty-type-error');
 
       // カレンダー機能
       let now = new Date();
@@ -643,7 +672,7 @@
       const monthTitles = document.querySelectorAll('.calendar-title');
       const calendarGrids = document.querySelectorAll('.calendar-grid');
 
-      // 祝日リスト
+      // 祝日リスト（例）
       const holidays = [
         "2024-01-01", "2024-01-08", "2024-02-11", "2024-03-20", "2024-04-29",
         "2024-05-03", "2024-05-04", "2024-05-05", "2024-05-06", "2024-07-15",
@@ -656,7 +685,7 @@
         "2025-11-24", "2026-01-12", "2026-02-11", "2026-03-20"
       ];
 
-      // 利用不可日
+      // 利用不可日（例）
       const specificUnavailableDates = [
         "2024-04-05", "2024-05-31", "2024-06-07", "2024-07-05", 
         "2024-08-30", "2024-09-06", "2024-10-04", "2024-11-29", "2024-12-14",
@@ -665,6 +694,7 @@
       ];
 
       const isUnavailableWednesday = (date) => {
+        // 第1,3,5水曜が不可という例
         if (date.getDay() !== 3) return false;
         const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
         const dayOfWeekOfFirstDay = firstDayOfMonth.getDay();
@@ -688,7 +718,7 @@
           title.textContent = `${month.getFullYear()}年 ${month.getMonth() + 1}月`;
         });
 
-        calendarGrids.forEach((grid, gridIndex) => {
+        calendarGrids.forEach((grid) => {
           const isPreferredCalendar = grid.closest('.calendar-wrapper').classList.contains('preferred');
           grid.innerHTML = '';
 
@@ -721,15 +751,17 @@
               cellClass += ' holiday';
             }
 
+            // 週末や祝日は日勤・当直の2ボタン表示（例）
             if (dayOfWeek === 0 || dayOfWeek === 6 || isSpecialDate) {
               cellClass += ' weekend-cell';
               let dutyDisabled = isPreferredCalendar && isUnavailable ? ' disabled' : '';
               grid.innerHTML += `
                 <div class="${cellClass}">
                   <button class="duty-btn${dutyDisabled}" data-date="${i}日">${i}日</button>
-                  <button class="duty-btn" data-date="${i}当">${i}当</button>
+                  <button class="duty-btn${dutyDisabled}" data-date="${i}当">${i}当</button>
                 </div>`;
             } else {
+              // 平日
               let disabled = isPreferredCalendar && isUnavailable ? ' disabled' : '';
               grid.innerHTML += `
                 <div class="${cellClass}">
@@ -739,17 +771,15 @@
           }
 
           // クリックイベント
-          const calendarType = isPreferredCalendar ? '' : ' not-preferred';
           grid.querySelectorAll('.date-btn:not(.disabled), .duty-btn:not(.disabled)').forEach(btn => {
             btn.addEventListener('click', function(e) {
               e.preventDefault();
-              
-              // 即座に選択状態を切り替え
+              // 選択状態の切り替え
               this.classList.toggle('selected');
-              if (calendarType) {
+              // 「希望しない日」の方なら .not-preferred も付与
+              if (!isPreferredCalendar) {
                 this.classList.toggle('not-preferred');
               }
-              
               // タップフィードバックアニメーション
               this.style.transform = 'scale(0.95)';
               setTimeout(() => {
@@ -780,52 +810,67 @@
       // フォーム送信
       const submitBtn = document.getElementById('submit-btn');
       const successMessage = document.getElementById('success-message');
-      const nameError = document.getElementById('name-error');
 
       submitBtn.addEventListener('click', function(e) {
         e.preventDefault();
         
-        // 名前の検証
+        // 1) 名前の検証
         let name = nameSelect.value;
         if (name === 'その他') {
           name = otherNameInput.value.trim();
-          if (!name) {
-            nameError.style.display = 'block';
-            otherNameInput.focus();
-            return;
-          }
-        } else if (!name) {
-          nameError.style.display = 'block';
-          nameSelect.focus();
-          return;
         }
-        nameError.style.display = 'none';
+        if (!name) {
+          nameError.style.display = 'block';
+          return;
+        } else {
+          nameError.style.display = 'none';
+        }
 
-        // データ収集
-        const comment = document.getElementById('comment-input').value;
-        const preferredDates = Array.from(document.querySelectorAll('.preferred .selected')).map(el => el.getAttribute('data-date'));
-        const notPreferredDates = Array.from(document.querySelectorAll('.not-preferred .selected')).map(el => el.getAttribute('data-date'));
-        const email = document.getElementById('email-input').value;
+        // 2) 日直／当直の必須チェック
+        let dutyType = dutyTypeSelect.value;
+        if (!dutyType) {
+          dutyTypeError.style.display = 'block';
+          dutyTypeSelect.focus();
+          return;
+        } else {
+          dutyTypeError.style.display = 'none';
+        }
+
+        // その他データ収集
+        const comment = document.getElementById('comment-input').value.trim();
+        const preferredDates = Array.from(document.querySelectorAll('.preferred .selected'))
+                                    .map(el => el.getAttribute('data-date'));
+        const notPreferredDates = Array.from(document.querySelectorAll('.not-preferred .selected'))
+                                       .map(el => el.getAttribute('data-date'));
+        const email = document.getElementById('email-input').value.trim();
 
         // ボタンを無効化
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 送信中...';
 
-        // EmailJS送信
+        // EmailJS送信 (service_idやtemplate_idは環境に合わせて変更)
         emailjs.send("service_v7cenku", "template_rm69kao", {
           "name": name,
           "comment": comment,
+          "duty_type": dutyType,
           "preferred_dates": preferredDates.join(', '),
           "not_preferred_dates": notPreferredDates.join(', '),
           "email": email
         }).then(function(response) {
+          // 送信完了表示
           submitBtn.style.display = 'none';
           successMessage.classList.add('show');
-          
+
           setTimeout(() => {
-            alert(`送信が完了しました。\n\n回答者：${name}\n希望日：${preferredDates.join(', ')}\n希望しない日：${notPreferredDates.join(', ')}`);
+            alert(
+              `送信が完了しました。\n\n` +
+              `回答者：${name}\n` +
+              `希望(日)：${preferredDates.join(', ')}\n` +
+              `希望しない日：${notPreferredDates.join(', ')}\n` +
+              `日直／当直：${dutyType}`
+            );
             
-            // リセット
+            // リセット動作 (必要に応じて初期化等を実施)
             setTimeout(() => {
               submitBtn.style.display = 'flex';
               submitBtn.disabled = false;
@@ -833,6 +878,7 @@
               successMessage.classList.remove('show');
             }, 2000);
           }, 500);
+
         }, function(error) {
           submitBtn.disabled = false;
           submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> エラー';
