@@ -142,7 +142,7 @@
       font-size: 0.9375rem;
       background-color: var(--bg-primary);
       color: var(--text-primary);
-      transition: all 0.15s ease;
+      transition: border-color 0.1s ease, box-shadow 0.1s ease;
     }
 
     select:focus, input:focus, textarea:focus {
@@ -214,7 +214,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.1s ease;
     }
 
     .nav-btn:hover {
@@ -274,22 +274,31 @@
       font-weight: 500;
       font-size: 0.875rem;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: transform 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease;
       position: relative;
     }
 
-    .date-btn:hover:not(.disabled) {
-      background-color: var(--bg-tertiary);
+    .date-btn:hover:not(.disabled):not(.selected) {
+      border-color: var(--primary);
+      background-color: rgba(37, 99, 235, 0.05);
     }
 
     .date-btn.selected {
       background-color: var(--primary);
       color: white;
       font-weight: 600;
+      border-color: var(--primary);
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
     }
 
     .date-btn.selected.not-preferred {
       background-color: var(--danger);
+      border-color: var(--danger);
+      box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+    }
+
+    .date-btn:active:not(.disabled) {
+      transform: scale(0.95);
     }
 
     .date-btn.disabled {
@@ -325,24 +334,31 @@
       border: 1px solid var(--border);
       background-color: var(--bg-primary);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: transform 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease;
       font-weight: 500;
     }
 
-    .duty-btn:hover:not(.disabled) {
-      background-color: var(--bg-tertiary);
+    .duty-btn:hover:not(.disabled):not(.selected) {
       border-color: var(--primary);
+      background-color: rgba(37, 99, 235, 0.05);
     }
 
     .duty-btn.selected {
       background-color: var(--primary);
       border-color: var(--primary);
       color: white;
+      font-weight: 600;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
     }
 
     .duty-btn.selected.not-preferred {
       background-color: var(--danger);
       border-color: var(--danger);
+      box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+    }
+
+    .duty-btn:active:not(.disabled) {
+      transform: scale(0.95);
     }
 
     .duty-btn.disabled {
@@ -366,7 +382,7 @@
       border-radius: var(--radius);
       border: none;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.1s ease;
       font-size: 0.9375rem;
       width: 100%;
     }
@@ -454,6 +470,15 @@
       .duty-btn {
         font-size: 0.6875rem;
         min-height: 24px;
+      }
+    }
+
+    /* タッチデバイス対応 */
+    @media (hover: none) and (pointer: coarse) {
+      .date-btn:hover:not(.disabled):not(.selected),
+      .duty-btn:hover:not(.disabled):not(.selected) {
+        background-color: transparent;
+        border-color: var(--border);
       }
     }
   </style>
@@ -716,11 +741,20 @@
           // クリックイベント
           const calendarType = isPreferredCalendar ? '' : ' not-preferred';
           grid.querySelectorAll('.date-btn:not(.disabled), .duty-btn:not(.disabled)').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              // 即座に選択状態を切り替え
               this.classList.toggle('selected');
               if (calendarType) {
                 this.classList.toggle('not-preferred');
               }
+              
+              // タップフィードバックアニメーション
+              this.style.transform = 'scale(0.95)';
+              setTimeout(() => {
+                this.style.transform = '';
+              }, 100);
             });
           });
         });
